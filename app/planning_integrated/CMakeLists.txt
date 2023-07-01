@@ -3,7 +3,7 @@ project(planning_integrated)
 
 set(CMAKE_VERBOSE_MAKEFILE "true")
 set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_CXX_FLAGS "-std=c++11  -g")
+set(CMAKE_CXX_FLAGS "-std=c++14  -g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall")
 
@@ -43,6 +43,7 @@ target_link_libraries(test_ssc_with_mpdm
    ${catkin_LIBRARIES}
    ssc_server_ros
    behavior_planner_ros
+   hkust_pl_ssc
 )
 
 add_executable(test_ssc_with_eudm
@@ -52,6 +53,7 @@ target_link_libraries(test_ssc_with_eudm
    ${catkin_LIBRARIES}
    ssc_server_ros
    hkust_eudm_ros
+   hkust_pl_ssc
 )
 
 #install the hearder files so that other packages can include.

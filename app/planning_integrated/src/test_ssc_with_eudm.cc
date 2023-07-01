@@ -11,6 +11,7 @@
 
 #include <chrono>
 #include <iostream>
+#include <memory>
 
 #include "eudm_planner/eudm_server_ros.h"
 #include "semantic_map_manager/data_renderer.h"
@@ -23,8 +24,8 @@ DECLARE_BACKWARD;
 double ssc_planner_work_rate = 20.0;
 double bp_work_rate = 20.0;
 
-planning::SscPlannerServer* p_ssc_server_{nullptr};
-planning::EudmPlannerServer* p_bp_server_{nullptr};
+std::unique_ptr<planning::SscPlannerServer> p_ssc_server_{nullptr};
+std::unique_ptr<planning::EudmPlannerServer> p_bp_server_{nullptr};
 
 int BehaviorUpdateCallback(
     const semantic_map_manager::SemanticMapManager& smm) {
@@ -75,12 +76,12 @@ int main(int argc, char** argv) {
   double desired_vel;
   nh.param("desired_vel", desired_vel, 6.0);
   // Declare bp
-  p_bp_server_ = new planning::EudmPlannerServer(nh, bp_work_rate, ego_id);
+  p_bp_server_ = std::make_unique<planning::EudmPlannerServer>(nh, bp_work_rate, ego_id);
   p_bp_server_->set_user_desired_velocity(desired_vel);
   p_bp_server_->BindBehaviorUpdateCallback(BehaviorUpdateCallback);
 
   p_ssc_server_ =
-      new planning::SscPlannerServer(nh, ssc_planner_work_rate, ego_id);
+      std::make_unique<planning::SscPlannerServer>(nh, ssc_planner_work_rate, ego_id);
 
   p_bp_server_->Init(bp_config_path);
   p_ssc_server_->Init(ssc_config_path);
