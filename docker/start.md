@@ -1,0 +1,1 @@
+docker run -v /home/tai/Projects/EPSILON:/root/catkin_ws/src/EPSILON -i -d epsilon:latest bash

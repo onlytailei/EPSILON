@@ -595,6 +595,10 @@ class VisualizationUtil {
     p_marker->pose.position.x = pt.x;
     p_marker->pose.position.y = pt.y;
     p_marker->pose.position.z = pt.z;
+    p_marker->pose.orientation.x = 0.0;
+    p_marker->pose.orientation.y = 0.0;
+    p_marker->pose.orientation.z = 0.0;
+    p_marker->pose.orientation.w = 1.0;
     return kSuccess;
   }
 
@@ -733,10 +737,10 @@ class VisualizationUtil {
   static ErrorType GetRosMarkerMeshUsingOrientedBoundingBox2D(
       const OrientedBoundingBox2D& obb, const ColorARGB& color,
       visualization_msgs::Marker* p_marker) {
-    p_marker->type = visualization_msgs::Marker::MESH_RESOURCE;
+    p_marker->type = visualization_msgs::Marker::CUBE;
     p_marker->action = visualization_msgs::Marker::MODIFY;
-    p_marker->mesh_resource = "package://common/materials/bmw_x5.dae";
-    p_marker->mesh_use_embedded_materials = true;
+    // p_marker->mesh_resource = "/home/tai/materials/bmw_x5.dae";
+    // p_marker->mesh_use_embedded_materials = true;
     FillScaleInMarker(Vec3f(1.0, 1.0, 1.0), p_marker);
     FillColorInMarker(color, p_marker);
     geometry_msgs::Pose obb_pose;
@@ -769,7 +773,7 @@ class VisualizationUtil {
     p_marker->id = id;
     p_marker->type = visualization_msgs::Marker::MESH_RESOURCE;
     p_marker->action = visualization_msgs::Marker::MODIFY;
-    p_marker->mesh_resource = "package://common/materials/traffic_cone.dae";
+    // p_marker->mesh_resource = "/home/tai/materials/traffic_cone.dae";
     // p_marker->mesh_use_embedded_materials = true;
     FillScaleInMarker(Vec3f(2, 2, 2), p_marker);
     FillColorInMarker(color, p_marker);
@@ -799,7 +803,7 @@ class VisualizationUtil {
     p_marker->id = id;
     p_marker->type = visualization_msgs::Marker::MESH_RESOURCE;
     p_marker->action = visualization_msgs::Marker::MODIFY;
-    p_marker->mesh_resource = "package://common/materials/hexagon_sign.dae";
+    // p_marker->mesh_resource = "/home/tai/common/materials/hexagon_sign.dae";
     // p_marker->mesh_use_embedded_materials = true;
     FillScaleInMarker(Vec3f(0.5, 0.5, 0.5), p_marker);
     FillColorInMarker(color, p_marker);

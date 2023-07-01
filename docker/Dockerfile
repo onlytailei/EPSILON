@@ -11,3 +11,4 @@ ENV PIP_CONFIG_FILE=/root/.pip/pip.conf
 RUN pip install empy pygame
 
 RUN mkdir -p /root/catkin_ws/src
+RUN mkdir -p /root/.eudm_log
