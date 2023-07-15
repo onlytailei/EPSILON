@@ -6,6 +6,7 @@
 #include <functional>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "common/basics/basics.h"
 #include "common/basics/semantics.h"
@@ -22,11 +23,11 @@ class RosAdapter {
   RosAdapter() {}
   RosAdapter(ros::NodeHandle nh, SemanticMapManager* ptr_smm) : nh_(nh) {
     p_smm_ = ptr_smm;
-    p_data_renderer_ = new DataRenderer(ptr_smm);
+    p_data_renderer_ = std::make_unique<DataRenderer>(ptr_smm);
   }
   ~RosAdapter() {}
 
-  void BindMapUpdateCallback(std::function<int(const SemanticMapManager&)> fn);
+  void BindMapUpdateCallback(std::function<int(const SemanticMapManager&)>&& fn);
 
   void Init();
 
@@ -51,7 +52,7 @@ class RosAdapter {
   common::LaneNet lane_net_;
   common::ObstacleSet obstacle_set_;
 
-  DataRenderer* p_data_renderer_;
+  std::unique_ptr<DataRenderer> p_data_renderer_;
   SemanticMapManager* p_smm_;
 
   bool get_arena_info_static_ = false;

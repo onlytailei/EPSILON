@@ -1,9 +1,10 @@
 #include "phy_simulator/phy_simulator.h"
+#include <memory>
 
 namespace phy_simulator {
 
 PhySimulation::PhySimulation() {
-  p_arena_loader_ = new ArenaLoader();
+  p_arena_loader_ = std::make_unique<ArenaLoader>();
   if (!GetDataFromArenaLoader()) assert(false);
 }
 
@@ -11,7 +12,7 @@ PhySimulation::PhySimulation(const std::string &vehicle_set_path,
                              const std::string &map_path,
                              const std::string &lane_net_path) {
   std::cout << "[PhySimulation] Constructing..." << std::endl;
-  p_arena_loader_ = new ArenaLoader();
+  p_arena_loader_ = std::make_unique<ArenaLoader>();
 
   p_arena_loader_->set_vehicle_set_path(vehicle_set_path);
   p_arena_loader_->set_map_path(map_path);

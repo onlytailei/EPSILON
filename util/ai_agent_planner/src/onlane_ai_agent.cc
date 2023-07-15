@@ -4,6 +4,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
+#include <memory>
 
 #include "behavior_planner/behavior_server_ros.h"
 #include "common/basics/tic_toc.h"
@@ -22,11 +23,12 @@ double visualization_msg_rate = 20.0;
 double bp_work_rate = 20.0;
 int ego_id;
 
+using SemanticMapManagerQueue = moodycamel::ReaderWriterQueue<semantic_map_manager::SemanticMapManager>;
+
 ros::Publisher ctrl_signal_pub_;
-planning::BehaviorPlannerServer* p_bp_server_{nullptr};
-moodycamel::ReaderWriterQueue<semantic_map_manager::SemanticMapManager>*
-    p_ctrl_input_smm_buff_{nullptr};
-semantic_map_manager::Visualizer* p_smm_vis_{nullptr};
+std::unique_ptr<planning::BehaviorPlannerServer> p_bp_server_{nullptr};
+std::unique_ptr<SemanticMapManagerQueue> p_ctrl_input_smm_buff_{nullptr};
+std::unique_ptr<semantic_map_manager::Visualizer> p_smm_vis_{nullptr};
 
 common::State desired_state;
 bool has_init_state = false;
@@ -104,6 +106,7 @@ void PublishControl() {
   common::State state;
   decimal_t distance_residual_ratio = 0.0;
   const decimal_t lat_range = 2.2;
+  // core control part to update the contrl state
   last_smm.GetLeadingVehicleOnLane(last_smm.ego_behavior().ref_lane,
                                    desired_state,
                                    last_smm.surrounding_vehicles(), lat_range,
@@ -174,10 +177,10 @@ int main(int argc, char** argv) {
   semantic_map_manager::SemanticMapManager semantic_map_manager(
       ego_id, agent_config_path);
   semantic_map_manager::RosAdapter smm_ros_adapter(nh, &semantic_map_manager);
-  p_smm_vis_ = new semantic_map_manager::Visualizer(nh, ego_id);
+  p_smm_vis_ = std::make_unique<semantic_map_manager::Visualizer>(nh, ego_id);
 
   // Declare bp
-  p_bp_server_ = new planning::BehaviorPlannerServer(nh, bp_work_rate, ego_id);
+  p_bp_server_ = std::make_unique<planning::BehaviorPlannerServer>(nh, bp_work_rate, ego_id);
   p_bp_server_->set_user_desired_velocity(desired_vel);
   p_bp_server_->set_autonomous_level(autonomous_level);
   p_bp_server_->set_aggressive_level(aggressiveness_level);
@@ -189,8 +192,7 @@ int main(int argc, char** argv) {
   smm_ros_adapter.Init();
   p_bp_server_->Init();
 
-  p_ctrl_input_smm_buff_ = new moodycamel::ReaderWriterQueue<
-      semantic_map_manager::SemanticMapManager>(100);
+  p_ctrl_input_smm_buff_ = std::make_unique<SemanticMapManagerQueue>(100);
 
   p_bp_server_->Start();
   ros::Rate rate(fs_work_rate);

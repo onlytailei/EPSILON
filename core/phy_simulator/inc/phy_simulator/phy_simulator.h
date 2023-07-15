@@ -14,6 +14,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <memory>
 
 #include <Eigen/Geometry>
 #include <Eigen/StdVector>
@@ -55,7 +56,7 @@ class PhySimulation {
   bool UpdateVehicleStates(const common::VehicleControlSignalSet &signal_set,
                            const decimal_t &dt);
 
-  ArenaLoader *p_arena_loader_;
+  std::unique_ptr<ArenaLoader> p_arena_loader_;
 
   common::VehicleSet vehicle_set_;
   std::unordered_map<int, simulator::VehicleModel> vehicle_model_set_;
