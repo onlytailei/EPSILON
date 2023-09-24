@@ -14,10 +14,10 @@ struct FreeState {
   decimal_t angle{0.0};
 
   void print() const {
-    printf("position: (%lf, %lf).\n", position[0], position[1]);
-    printf("velocity: (%lf, %lf).\n", velocity[0], velocity[1]);
-    printf("acceleration: (%lf, %lf).\n", acceleration[0], acceleration[1]);
-    printf("angle: %lf.\n", angle);
+    //printf("position: (%lf, %lf).\n", position[0], position[1]);
+    //printf("velocity: (%lf, %lf).\n", velocity[0], velocity[1]);
+    //printf("acceleration: (%lf, %lf).\n", acceleration[0], acceleration[1]);
+    //printf("angle: %lf.\n", angle);
   }
 };
 

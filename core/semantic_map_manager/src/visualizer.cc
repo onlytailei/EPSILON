@@ -151,7 +151,7 @@ void Visualizer::VisualizeObstacleMap(
 void Visualizer::SendTfWithStamp(const ros::Time &stamp,
                                  const SemanticMapManager &smm) {
   if (smm.time_stamp() < kEPS) {
-    // printf("[Error]SMM timestamp is unset\n");
+    // //printf("[Error]SMM timestamp is unset\n");
     return;  // if time stamp unset, return
   }
   // * Publish TF: map -> ego_vehicle

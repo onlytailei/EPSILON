@@ -50,11 +50,13 @@ struct FrenetState {
   }
 
   void print() const {
-    printf("frenet state stamp: %lf.\n", time_stamp);
-    printf("-- vec_s: (%lf, %lf, %lf).\n", vec_s[0], vec_s[1], vec_s[2]);
-    printf("-- vec_dt: (%lf, %lf, %lf).\n", vec_dt[0], vec_dt[1], vec_dt[2]);
-    printf("-- vec_ds: (%lf, %lf, %lf).\n", vec_ds[0], vec_ds[1], vec_ds[2]);
-    if (!is_ds_usable) printf("-- warning: ds not usable.\n");
+    //printf("frenet state stamp: %lf.\n", time_stamp);
+    //printf("-- vec_s: (%lf, %lf, %lf).\n", vec_s[0], vec_s[1], vec_s[2]);
+    //printf("-- vec_dt: (%lf, %lf, %lf).\n", vec_dt[0], vec_dt[1], vec_dt[2]);
+    //printf("-- vec_ds: (%lf, %lf, %lf).\n", vec_ds[0], vec_ds[1], vec_ds[2]);
+    if (!is_ds_usable) {
+        //printf("-- warning: ds not usable.\n");
+    }
   }
 };
 

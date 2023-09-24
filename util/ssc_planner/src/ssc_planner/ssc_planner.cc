@@ -24,8 +24,8 @@ ErrorType SscPlanner::Init(const std::string config_path) {
   ReadConfig(config_path);
 
   // * Planner config
-  printf("\nSscPlanner Config:\n");
-  printf(" -- weight_proximity: %lf\n", cfg_.planner_cfg().weight_proximity());
+  //printf("\nSscPlanner Config:\n");
+  //printf(" -- weight_proximity: %lf\n", cfg_.planner_cfg().weight_proximity());
 
   LOG(INFO) << "[Ssc]SscPlanner Config:";
   LOG(INFO) << "[Ssc] -- low spd threshold: "
@@ -63,7 +63,7 @@ ErrorType SscPlanner::Init(const std::string config_path) {
 }
 
 ErrorType SscPlanner::ReadConfig(const std::string config_path) {
-  printf("\n[EudmPlanner] Loading ssc planner config\n");
+  //printf("\n[EudmPlanner] Loading ssc planner config\n");
   using namespace google::protobuf;
   int fd = open(config_path.c_str(), O_RDONLY);
   io::FileInputStream fstream(fd);
@@ -170,7 +170,7 @@ ErrorType SscPlanner::RunOnce() {
     // ! efficiency in the future.
     // TicToc timer_infl;
     // p_ssc_map_->InflateObstacleGrid(ego_vehicle_.param());
-    // printf("[SscPlanner] InflateObstacleGrid time cost: %lf ms\n",
+    // //printf("[SscPlanner] InflateObstacleGrid time cost: %lf ms\n",
     //        timer_infl.toc());
     if (p_ssc_map_->ConstructCorridorUsingInitialTrajectory(
             p_ssc_map_->p_3d_grid(), forward_trajs_fs_[i]) != kSuccess) {
@@ -265,7 +265,7 @@ ErrorType SscPlanner::RunQpOptimization() {
     start_constraints.push_back(
         Vecf<2>(ego_frenet_state_.vec_s[2], ego_frenet_state_.vec_dt[2]));
 
-    // printf("[Inconsist]Start sd position (%lf, %lf).\n",
+    // //printf("[Inconsist]Start sd position (%lf, %lf).\n",
     // start_constraints[0](0),
     //        start_constraints[0](1));
     vec_E<Vecf<2>> end_constraints;
@@ -362,7 +362,7 @@ ErrorType SscPlanner::RunQpOptimization() {
     }
 
     if (is_lateral_independent_ && !bezier_spline_gen_success) continue;
-    // printf("[SscQP]spline begin stamp: %lf.\n", bezier_spline.begin());
+    // //printf("[SscQP]spline begin stamp: %lf.\n", bezier_spline.begin());
     qp_trajs_.push_back(bezier_spline);
     primitive_trajs_.push_back(primitive);
     corridors_.push_back(cube_list[i]);

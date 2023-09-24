@@ -533,7 +533,7 @@ class OnLaneForwardSimulation {
     *state = model.state();
     state->time_stamp = current_state.time_stamp + dt;
     // if (std::isnan(state->velocity)) {
-    //   printf(
+    //   //printf(
     //       "[DEBUG]state velocity %lf steer: %lf, velocity %lf output velocity
     //       "
     //       "%lf.\n",

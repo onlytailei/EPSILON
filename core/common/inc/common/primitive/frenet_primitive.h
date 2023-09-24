@@ -65,7 +65,7 @@ class FrenetPrimitive {
    * @brief Debug print
    */
   void print() const {
-    printf("frenet primitive in duration [%lf, %lf].\n", begin(), end());
+    //printf("frenet primitive in duration [%lf, %lf].\n", begin(), end());
     poly_s_.print();
     poly_d_.print();
     fs0_.print();

@@ -20,7 +20,7 @@ void IntelligentDriverModel::Step(double dt) {
   odeint::integrate(boost::ref(*this), internal_state_, 0.0, dt, dt);
   // Linear(internal_state_, dt, &internal_state_);
 
-  // printf("[Internal]%lf, %lf, %lf, %lf\n", internal_state_[0],
+  // //printf("[Internal]%lf, %lf, %lf, %lf\n", internal_state_[0],
   //        internal_state_[1], internal_state_[2], internal_state_[3]);
 
   state_.s = internal_state_[0];

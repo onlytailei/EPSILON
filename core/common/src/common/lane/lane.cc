@@ -11,11 +11,11 @@ ErrorType Lane::GetCurvatureByArcLength(const decimal_t& arc_length,
 
   Vecf<LaneDim> vel, acc, jrk;
   GetDerivativeByArcLength(arc_length, 1, &vel);
-  // printf("vel: (%lf, %lf) at arc length %lf.\n", vel[0], vel[1], arc_length);
+  // //printf("vel: (%lf, %lf) at arc length %lf.\n", vel[0], vel[1], arc_length);
   GetDerivativeByArcLength(arc_length, 2, &acc);
-  // printf("acc: (%lf, %lf) at arc length %lf.\n", acc[0], acc[1], arc_length);
+  // //printf("acc: (%lf, %lf) at arc length %lf.\n", acc[0], acc[1], arc_length);
   GetDerivativeByArcLength(arc_length, 3, &jrk);
-  // printf("jrk: (%lf, %lf) at arc length %lf.\n", jrk[0], jrk[1], arc_length);
+  // //printf("jrk: (%lf, %lf) at arc length %lf.\n", jrk[0], jrk[1], arc_length);
 
   decimal_t c0 = vel[0] * acc[1] - vel[1] * acc[0];
   decimal_t c1 = vel.norm();
@@ -125,7 +125,7 @@ ErrorType Lane::GetArcLengthByVecPosition(const Vecf<LaneDim>& vec_position,
   decimal_t s3 = val_ub;
   decimal_t initial_guess = s2;
 
-  // printf("[XXX]s1 = %lf, s2 = %lf, s3 = %lf\n", s1, s2, s3);
+  // //printf("[XXX]s1 = %lf, s2 = %lf, s3 = %lf\n", s1, s2, s3);
 
   Vecf<LaneDim> start_pos, mid_pos, final_pos;
   position_spline_.evaluate(s1, &start_pos);
@@ -138,7 +138,7 @@ ErrorType Lane::GetArcLengthByVecPosition(const Vecf<LaneDim>& vec_position,
   decimal_t d3 = (final_pos - vec_position).squaredNorm();
 
   for (int i = 0; i < kMaxCnt; ++i) {
-    // printf("[XXX] - it = %d - s1 = %lf, s2 = %lf, s3 = %lf\n", i, s1, s2,
+    // //printf("[XXX] - it = %d - s1 = %lf, s2 = %lf, s3 = %lf\n", i, s1, s2,
     // s3);
     decimal_t min_dis = std::min(std::min(d1, d2), d3);
     if (min_dis < kMaxDistSquare) {
@@ -179,15 +179,15 @@ ErrorType Lane::GetArcLengthByVecPosition(const Vecf<LaneDim>& vec_position,
       d1 = (start_pos - vec_position).squaredNorm();
       d2 = (mid_pos - vec_position).squaredNorm();
     } else {
-      printf(
-          "[Lane]GetArcLengthByVecPosition - d1: %lf, d2: %lf, d3: %lf, "
-          "min_dis: %lf\n",
-          d1, d2, d3, min_dis);
+      //printf(
+       //   "[Lane]GetArcLengthByVecPosition - d1: %lf, d2: %lf, d3: %lf, "
+       //   "min_dis: %lf\n",
+       //   d1, d2, d3, min_dis);
       assert(false);
     }
   }
 
-  // printf("[XXX]initial_guess = %lf\n", initial_guess);
+  // //printf("[XXX]initial_guess = %lf\n", initial_guess);
 
   // ~ Step II: use Newton's method to find the local minimum
   GetArcLengthByVecPositionWithInitialGuess(vec_position, initial_guess,
@@ -228,13 +228,13 @@ ErrorType Lane::GetArcLengthByVecPositionWithInitialGuess(
 
     if (x + dx > val_ub) {
       x = val_ub;
-      // printf(
+      // //printf(
       //     "[Lane]GetArcLengthByVecPosition - Out of range, use upper
       //     bound\n");
       break;
     } else if (x + dx < val_lb) {
       x = val_lb;
-      // printf(
+      // //printf(
       //     "[Lane]GetArcLengthByVecPosition - Out of range, use lower
       //     bound\n");
       break;
@@ -315,12 +315,12 @@ ErrorType Lane::GetArcLengthByVecPositionWithInitialGuess(
 
 ErrorType Lane::CheckInputArcLength(const decimal_t arc_length) const {
   if (!IsValid()) {
-    printf("[CheckInputArcLength]Quering invalid lane.\n");
+    //printf("[CheckInputArcLength]Quering invalid lane.\n");
     return kWrongStatus;
   }
   if (arc_length < position_spline_.begin() - kEPS ||
       arc_length > position_spline_.end() + kEPS) {
-    // printf("[CheckInputArcLength]Out of domain error: %lf --> (%lf, %lf).\n",
+    // //printf("[CheckInputArcLength]Out of domain error: %lf --> (%lf, %lf).\n",
     //        arc_length, position_spline_.begin(), position_spline_.end());
     return kIllegalInput;
   }

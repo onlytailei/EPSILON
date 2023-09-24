@@ -115,17 +115,17 @@ class Spline {
   void print() const {
     int num_polys = static_cast<int>(poly_.size());
     for (int i = 0; i < num_polys; i++) {
-      printf("vec domain (%lf, %lf).\n", vec_domain_[i], vec_domain_[i + 1]);
+      //printf("vec domain (%lf, %lf).\n", vec_domain_[i], vec_domain_[i + 1]);
       poly_[i].print();
       Vecf<2> v;
       poly_[i].evaluate(vec_domain_[i + 1] - vec_domain_[i], 0, &v);
-      printf("end pos: (%lf, %lf).\n", v[0], v[1]);
+      //printf("end pos: (%lf, %lf).\n", v[0], v[1]);
       poly_[i].evaluate(vec_domain_[i + 1] - vec_domain_[i], 1, &v);
-      printf("end vel: (%lf, %lf).\n", v[0], v[1]);
+      //printf("end vel: (%lf, %lf).\n", v[0], v[1]);
       poly_[i].evaluate(vec_domain_[i + 1] - vec_domain_[i], 2, &v);
-      printf("end acc: (%lf, %lf).\n", v[0], v[1]);
+      //printf("end acc: (%lf, %lf).\n", v[0], v[1]);
       poly_[i].evaluate(vec_domain_[i + 1] - vec_domain_[i], 3, &v);
-      printf("end jerk: (%lf, %lf).\n", v[0], v[1]);
+      //printf("end jerk: (%lf, %lf).\n", v[0], v[1]);
     }
   }
 

@@ -25,7 +25,7 @@ ErrorType BehaviorPlannerMapAdapter::GetEgoVehicle(common::Vehicle *vehicle) {
 ErrorType BehaviorPlannerMapAdapter::GetEgoLaneIdByPosition(
     const std::vector<int> &navi_path, int *lane_id) {
   if (!is_valid_) {
-    printf("[GetEgoLaneIdByPosition]Interface not valid.\n");
+    //printf("[GetEgoLaneIdByPosition]Interface not valid.\n");
     return kWrongStatus;
   }
 
@@ -41,7 +41,7 @@ ErrorType BehaviorPlannerMapAdapter::GetEgoLaneIdByPosition(
   if (map_->GetNearestLaneIdUsingState(state_3dof, navi_path, &ego_lane_id,
                                        &distance_to_lane,
                                        &arc_len) != kSuccess) {
-    printf("[GetEgoLaneIdByPosition]Cannot get nearest lane.\n");
+    //printf("[GetEgoLaneIdByPosition]Cannot get nearest lane.\n");
     return kWrongStatus;
   }
 
@@ -53,13 +53,13 @@ ErrorType BehaviorPlannerMapAdapter::GetNearestLaneIdUsingState(
     const Vec3f &state, const std::vector<int> &navi_path, int *id,
     decimal_t *distance, decimal_t *arc_len) {
   if (!is_valid_) {
-    printf("[GetNearestLaneIdUsingState]Interface not valid.\n");
+    //printf("[GetNearestLaneIdUsingState]Interface not valid.\n");
     return kWrongStatus;
   }
   std::set<std::tuple<decimal_t, decimal_t, int>> dist_set;
   if (map_->GetNearestLaneIdUsingState(state, navi_path, id, distance,
                                        arc_len) != kSuccess) {
-    printf("[GetNearestLaneIdUsingState]Cannot get nearest lane.\n");
+    //printf("[GetNearestLaneIdUsingState]Cannot get nearest lane.\n");
     return kWrongStatus;
   }
   return kSuccess;
@@ -69,12 +69,12 @@ ErrorType BehaviorPlannerMapAdapter::IsTopologicallyReachable(
     const int lane_id, const std::vector<int> &path, int *num_lane_changes,
     bool *res) {
   if (!is_valid_) {
-    printf("[GetNearestLaneIdUsingState]Interface not valid.\n");
+    //printf("[GetNearestLaneIdUsingState]Interface not valid.\n");
     return kWrongStatus;
   }
   if (map_->IsTopologicallyReachable(lane_id, path, num_lane_changes, res) !=
       kSuccess) {
-    printf("[GetNearestLaneIdUsingState]Cannot get nearest lane.\n");
+    //printf("[GetNearestLaneIdUsingState]Cannot get nearest lane.\n");
     return kWrongStatus;
   }
   return kSuccess;

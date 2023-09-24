@@ -18,13 +18,17 @@ Point::Point(decimal_t _x, decimal_t _y) : x(_x), y(_y) {}
 
 Point::Point(decimal_t _x, decimal_t _y, decimal_t _z) : x(_x), y(_y), z(_z) {}
 
-void Point::print() const { printf("(%f, %f)", x, y); }
+void Point::print() const {
+    //printf("(%f, %f)", x, y);
+    }
 
 Point2i::Point2i() {}
 
 Point2i::Point2i(int _x, int _y) : x(_x), y(_y) {}
 
-void Point2i::print() const { printf("(%d, %d)", x, y); }
+void Point2i::print() const {
+    //printf("(%d, %d)", x, y);
+    }
 
 OrientedBoundingBox2D::OrientedBoundingBox2D() {}
 
@@ -36,21 +40,21 @@ OrientedBoundingBox2D::OrientedBoundingBox2D(const decimal_t x_,
     : x(x_), y(y_), angle(angle_), width(width_), length(length_) {}
 
 void Circle::print() const {
-  printf("Circle:\n");
-  printf(" -- center:");
+  //printf("Circle:\n");
+  //printf(" -- center:");
   center.print();
-  printf("\n -- radius: %lf\n", radius);
+  //printf("\n -- radius: %lf\n", radius);
 }
 
 void PolyLine::print() const {
-  printf("PolyLine:\n");
-  printf(" -- dir: %d", dir);
-  printf(" -- num of pts: %d", (int)points.size());
+  //printf("PolyLine:\n");
+  //printf(" -- dir: %d", dir);
+  //printf(" -- num of pts: %d", (int)points.size());
 }
 
 void Polygon::print() const {
-  printf("Polygon:\n");
-  printf(" -- num of pts: %d", (int)points.size());
+  //printf("Polygon:\n");
+  //printf(" -- num of pts: %d", (int)points.size());
 }
 
 bool ShapeUtils::CheckIfOrientedBoundingBoxIntersect(

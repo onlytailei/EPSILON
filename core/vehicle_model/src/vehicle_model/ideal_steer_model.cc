@@ -23,15 +23,15 @@ IdealSteerModel::IdealSteerModel(double wheelbase_len, double max_lon_acc,
       max_steering_angle_(max_steering_angle),
       max_steer_rate_(max_steer_rate),
       max_curvature_(max_curvature) {
-  // printf("[DEBUG]max_lon_acc_ %lf.\n", max_lon_acc_);
-  // printf("[DEBUG]max_lon_dec_ %lf.\n", max_lon_dec_);
-  // printf("[DEBUG]max_lon_acc_jerk_ %lf.\n", max_lon_acc_jerk_);
-  // printf("[DEBUG]max_lon_dec_jerk_ %lf.\n", max_lon_dec_jerk_);
-  // printf("[DEBUG]max_lat_acc_ %lf.\n", max_lat_acc_);
-  // printf("[DEBUG]max_lat_jerk_ %lf.\n", max_lat_jerk_);
-  // printf("[DEBUG]max_steering_angle_ %lf.\n", max_steering_angle_);
-  // printf("[DEBUG]max_steer_rate_ %lf.\n", max_steer_rate_);
-  // printf("[DEBUG]max_curvature_ %lf.\n", max_curvature_);
+  // //printf("[DEBUG]max_lon_acc_ %lf.\n", max_lon_acc_);
+  // //printf("[DEBUG]max_lon_dec_ %lf.\n", max_lon_dec_);
+  // //printf("[DEBUG]max_lon_acc_jerk_ %lf.\n", max_lon_acc_jerk_);
+  // //printf("[DEBUG]max_lon_dec_jerk_ %lf.\n", max_lon_dec_jerk_);
+  // //printf("[DEBUG]max_lat_acc_ %lf.\n", max_lat_acc_);
+  // //printf("[DEBUG]max_lat_jerk_ %lf.\n", max_lat_jerk_);
+  // //printf("[DEBUG]max_steering_angle_ %lf.\n", max_steering_angle_);
+  // //printf("[DEBUG]max_steer_rate_ %lf.\n", max_steer_rate_);
+  // //printf("[DEBUG]max_curvature_ %lf.\n", max_curvature_);
   UpdateInternalState();
 }
 

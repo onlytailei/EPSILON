@@ -3,7 +3,7 @@
 namespace control {
 PIDControl::PIDControl(const ControlParam& param)
     : param_(param), dt_(0.05), max_history_len_(1000) {
-  printf("default PID controller with dt: %lf ms.\n", dt_);
+  //printf("default PID controller with dt: %lf ms.\n", dt_);
 }
 PIDControl::PIDControl(const ControlParam& param, const decimal_t dt)
     : param_(param), dt_(dt), max_history_len_(1000) {}

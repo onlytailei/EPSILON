@@ -23,7 +23,7 @@ ArenaLoader::ArenaLoader(const std::string &vehicle_set_path,
       lane_net_path_(lane_net_path) {}
 
 bool ArenaLoader::ParseVehicleSet(common::VehicleSet *p_vehicle_set) {
-  printf("\n[ArenaLoader] Loading vehicle set\n");
+  //printf("\n[ArenaLoader] Loading vehicle set\n");
 
   std::fstream fs(vehicle_set_path_);
   Json root;
@@ -75,7 +75,7 @@ bool ArenaLoader::ParseVehicleSet(common::VehicleSet *p_vehicle_set) {
 }
 
 ErrorType ArenaLoader::ParseMapInfo(common::ObstacleSet *p_obstacle_set) {
-  printf("\n[ArenaLoader] Loading map info\n");
+  //printf("\n[ArenaLoader] Loading map info\n");
 
   std::fstream fs(map_path_);
   Json root;
@@ -84,7 +84,7 @@ ErrorType ArenaLoader::ParseMapInfo(common::ObstacleSet *p_obstacle_set) {
   Json obstacles_json = root["features"];
   for (int i = 0; i < static_cast<int>(obstacles_json.size()); ++i) {
     Json obs = obstacles_json[i];
-    printf("Obstacle id %d.\n", obs["properties"]["id"].get<int>());
+    //printf("Obstacle id %d.\n", obs["properties"]["id"].get<int>());
     auto is_valid = obs["properties"]["is_valid"].get<int>();
     if (!static_cast<bool>(is_valid)) {
       continue;
@@ -109,7 +109,7 @@ ErrorType ArenaLoader::ParseMapInfo(common::ObstacleSet *p_obstacle_set) {
 }
 
 ErrorType ArenaLoader::ParseLaneNetInfo(common::LaneNet *p_lane_net) {
-  printf("\n[ArenaLoader] Loading lane net info\n");
+  //printf("\n[ArenaLoader] Loading lane net info\n");
 
   std::fstream fs(lane_net_path_);
   Json root;
@@ -126,7 +126,7 @@ ErrorType ArenaLoader::ParseLaneNetInfo(common::LaneNet *p_lane_net) {
     lane_raw.length = lane_meta["length"].get<double>();
     lane_raw.dir = 1;
 
-    printf("-Lane id %d.\n", lane_raw.id);
+    //printf("-Lane id %d.\n", lane_raw.id);
     std::string str_child_id = lane_meta["child_id"].get<std::string>();
     {
       std::vector<std::string> str_vec;

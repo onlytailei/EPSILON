@@ -32,16 +32,16 @@ inline std::vector<decimal_t> cubic(decimal_t a, decimal_t b, decimal_t c,
   decimal_t a2 = b / a;
   decimal_t a1 = c / a;
   decimal_t a0 = d / a;
-  // printf("a: %f, b: %f, c: %f, d: %f\n", a, b, c, d);
+  // //printf("a: %f, b: %f, c: %f, d: %f\n", a, b, c, d);
 
   decimal_t Q = (3 * a1 - a2 * a2) / 9;
   decimal_t R = (9 * a1 * a2 - 27 * a0 - 2 * a2 * a2 * a2) / 54;
   decimal_t D = Q * Q * Q + R * R;
-  // printf("R: %f, Q: %f, D: %f\n", R, Q, D);
+  // //printf("R: %f, Q: %f, D: %f\n", R, Q, D);
   if (D > 0) {
     decimal_t S = std::cbrt(R + sqrt(D));
     decimal_t T = std::cbrt(R - sqrt(D));
-    // printf("S: %f, T: %f\n", S, T);
+    // //printf("S: %f, T: %f\n", S, T);
     dts.push_back(-a2 / 3 + (S + T));
     return dts;
   } else if (D == 0) {
@@ -71,11 +71,11 @@ inline std::vector<decimal_t> quartic(decimal_t a, decimal_t b, decimal_t c,
 
   std::vector<decimal_t> ys = cubic(1, -a2, a1*a3-4*a0, 4*a2*a0-a1*a1-a3*a3*a0);
   decimal_t y1 = ys.front();
-  //printf("y1: %f\n", y1);
+  ////printf("y1: %f\n", y1);
   decimal_t r = a3*a3/4-a2+y1;
-  //printf("r: %f\n", r);
+  ////printf("r: %f\n", r);
 
-  //printf("a = %f, b = %f, c = %f, d = %f, e = %f\n", a, b, c, d, e);
+  ////printf("a = %f, b = %f, c = %f, d = %f, e = %f\n", a, b, c, d, e);
   if(r < 0)
     return dts;
 

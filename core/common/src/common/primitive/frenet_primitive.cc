@@ -33,15 +33,15 @@ ErrorType FrenetPrimitive::Connect(const FrenetState& fs0,
   duration_ = T;
   fs1_ = fs1;
   // if (!is_lateral_independent_) {
-  //   printf("stamp %lf, T %lf, s0 %lf s1 %lf.\n", stamp, T, fs0.vec_s[0],
+  //   //printf("stamp %lf, T %lf, s0 %lf s1 %lf.\n", stamp, T, fs0.vec_s[0],
   //          fs1.vec_s[0]);
-  //   printf("state0 - d : %lf, %lf, %lf.\n", fs0.vec_ds(0), fs0.vec_ds(1),
+  //   //printf("state0 - d : %lf, %lf, %lf.\n", fs0.vec_ds(0), fs0.vec_ds(1),
   //          fs0.vec_ds(2));
-  //   printf("state1 - d : %lf, %lf, %lf.\n", fs1.vec_ds(0), fs1.vec_ds(1),
+  //   //printf("state1 - d : %lf, %lf, %lf.\n", fs1.vec_ds(0), fs1.vec_ds(1),
   //          fs1.vec_ds(2));
-  //   printf("lon coeff: .\n");
+  //   //printf("lon coeff: .\n");
   //   poly_s_.print();
-  //   printf("lateral coeff: .\n");
+  //   //printf("lateral coeff: .\n");
   //   poly_d_.print();
   // }
   return kSuccess;

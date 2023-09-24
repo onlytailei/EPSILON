@@ -5,7 +5,7 @@ namespace common {
 ErrorType StateTransformer::GetStateFromFrenetState(const FrenetState& fs,
                                                     State* s) const {
   if (!lane_.IsValid()) {
-    printf("[StateFromFrenetState]Err: lane not valid.\n");
+    //printf("[StateFromFrenetState]Err: lane not valid.\n");
     return kIllegalInput;
   }
   if (!fs.is_ds_usable) {
@@ -14,7 +14,7 @@ ErrorType StateTransformer::GetStateFromFrenetState(const FrenetState& fs,
   }
 
   if (LaneDim != 2) {
-    printf("[StateFromFrenetState]Err: cannot support non-plane now.\n");
+    //printf("[StateFromFrenetState]Err: cannot support non-plane now.\n");
     return kIllegalInput;
   }
 
@@ -143,7 +143,7 @@ ErrorType StateTransformer::GetFrenetStateFromState(const State& s,
   }
 
   // if (fabs(normalize_angle(s.angle - lane_orientation)) > M_PI / 2.0) {
-  //   // printf("[FrenetStateFromState]State angle %lf not on lane (%lf).\n",
+  //   // //printf("[FrenetStateFromState]State angle %lf not on lane (%lf).\n",
   //   //        s.angle, lane_orientation);
   //   return kWrongStatus;
   // }
@@ -151,7 +151,7 @@ ErrorType StateTransformer::GetFrenetStateFromState(const State& s,
   decimal_t d = (s.vec_position - lane_position).dot(lane_normal_vec);
   decimal_t one_minus_curd = 1 - curvature * d;
   if (one_minus_curd < kEPS) {
-    // printf("[StateFromFrenetState]d not valid for transform.\n");
+    // //printf("[StateFromFrenetState]d not valid for transform.\n");
     return kWrongStatus;
   }
   decimal_t delta_theta = normalize_angle(s.angle - lane_orientation);

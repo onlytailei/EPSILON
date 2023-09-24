@@ -11,7 +11,7 @@ ErrorType MobilLaneChangingModel::GetMobilAccChangesOnCurrentLane(
       leading_vehicle.id() == kInvalidAgentId ? false : true;
   bool has_following_vehicle =
       following_vehicle.id() == kInvalidAgentId ? false : true;
-  // printf("[Mobil]%d, Cur lane leading: %d, following: %d\n", vehicle.id(),
+  // //printf("[Mobil]%d, Cur lane leading: %d, following: %d\n", vehicle.id(),
   //        leading_vehicle.id(), following_vehicle.id());
 
   decimal_t acc_o_tmp = 0.0, acc_o_tilda_tmp = 0.0, acc_c_tmp = 0.0;
@@ -54,7 +54,7 @@ ErrorType MobilLaneChangingModel::GetMobilAccChangesOnCurrentLane(
   *acc_o = acc_o_tmp;
   *acc_o_tilda = acc_o_tilda_tmp;
   *acc_c = acc_c_tmp;
-  // printf("[Mobil]acc_o = %lf, acc_o_tilda = %lf\n", acc_o, acc_o_tilda);
+  // //printf("[Mobil]acc_o = %lf, acc_o_tilda = %lf\n", acc_o, acc_o_tilda);
   return kSuccess;
 }
 

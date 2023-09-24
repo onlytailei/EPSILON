@@ -24,7 +24,7 @@ ErrorType RoutePlanner::RunOnce() {
   }
   // ~ if navi lane is not valid, we should tell the caller
   if (!navi_lane_.IsValid()) {
-    printf("[RP]Err - fail to output valid navi lane.\n");
+    //printf("[RP]Err - fail to output valid navi lane.\n");
     return kWrongStatus;
   }
   return kSuccess;
@@ -34,22 +34,22 @@ ErrorType RoutePlanner::NaviLoopRandomExpansion() {
   switch (navi_status_) {
     case kReadyToGo:
       if (GetNaviPathByRandomExpansion() != kSuccess) {
-        printf("[RP]Err - fail to find navi path.\n");
+        //printf("[RP]Err - fail to find navi path.\n");
         break;
       }
       navi_status_ = kInProgress;
       break;
     case kInProgress:
       if (CheckNaviProgress() != kSuccess) {
-        printf("[RP]Err - InProgress but fail to check navi progress.\n");
-        printf("[RP]Switching back to kReadyToGo.\n");
+        //printf("[RP]Err - InProgress but fail to check navi progress.\n");
+        //printf("[RP]Switching back to kReadyToGo.\n");
         navi_status_ = kReadyToGo;
       }
       break;
     case kFinished:
-      printf("[RP]Finish trip.\n");
+      //printf("[RP]Finish trip.\n");
       if (if_restart_) {
-        printf("[RP]Restart mission.\n");
+        //printf("[RP]Restart mission.\n");
         navi_status_ = kReadyToGo;
       }
       break;
@@ -93,22 +93,22 @@ ErrorType RoutePlanner::GetNaviPathByRandomExpansion() {
 
   if (common::LaneGenerator::GetLaneBySamplePoints(raw_samples, &navi_lane_) !=
       kSuccess) {
-    printf("[RP]Err - fail to fitting lane with %d samples.\n",
-           static_cast<int>(raw_samples.size()));
+    //printf("[RP]Err - fail to fitting lane with %d samples.\n",
+    //       static_cast<int>(raw_samples.size()));
     return kWrongStatus;
   }
 
   Vec2f pos(ego_state_.vec_position(0), ego_state_.vec_position(1));
   if (navi_lane_.GetArcLengthByVecPosition(pos, &navi_start_arc_length_) !=
       kSuccess) {
-    printf("[RP]Err - fail to locate ego state on navi lane.\n");
+    //printf("[RP]Err - fail to locate ego state on navi lane.\n");
     return kWrongStatus;
   }
   navi_lane_.GetArcLengthByVecPosition(pos, &navi_cur_arc_len_);
 
   navi_path_length_ = navi_lane_.end() - navi_start_arc_length_;
   if (navi_path_length_ < 0.0) {
-    printf("[PubgLane]Err - fail to get legal navi path length.\n");
+    //printf("[PubgLane]Err - fail to get legal navi path length.\n");
     return kWrongStatus;
   }
   return kSuccess;

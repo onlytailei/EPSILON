@@ -11,7 +11,7 @@ namespace planning {
 std::string EudmPlanner::Name() { return std::string("Eudm behavior planner"); }
 
 ErrorType EudmPlanner::ReadConfig(const std::string config_path) {
-  printf("\n[EudmPlanner] Loading eudm planner config\n");
+  //printf("\n[EudmPlanner] Loading eudm planner config\n");
   using namespace google::protobuf;
   int fd = open(config_path.c_str(), O_RDONLY);
   io::FileInputStream fstream(fd);
@@ -343,7 +343,7 @@ ErrorType EudmPlanner::UpdateEgoBehaviorsUsingAction(
   LongitudinalBehavior lon_behavior;
   if (TranslateDcpActionToLonLatBehavior(action, &lat_behavior,
                                          &lon_behavior) != kSuccess) {
-    printf("[Eudm]Translate action error\n");
+    //printf("[Eudm]Translate action error\n");
     return kWrongStatus;
   }
   ego_fsagent->lat_behavior = lat_behavior;
@@ -405,7 +405,7 @@ ErrorType EudmPlanner::UpdateSimSetupForScenario(
       break;
     }
     default: {
-      printf("[Eudm]Error - Lon action not valid\n");
+      //printf("[Eudm]Error - Lon action not valid\n");
       assert(false);
     }
   }

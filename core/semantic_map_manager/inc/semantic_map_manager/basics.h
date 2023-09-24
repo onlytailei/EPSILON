@@ -36,12 +36,12 @@ struct AgentConfigInfo {
 
   void PrintInfo() {
     obstacle_map_meta_info.print();
-    printf("surrounding_search_radius: %f\n", surrounding_search_radius);
-    printf("enable_openloop_prediction: %d\n", enable_openloop_prediction);
-    printf("enable_tracking_noise: %d\n", enable_tracking_noise);
-    printf("enable_log: %d\n", enable_log);
-    printf("enable_fast_lane_lut: %d\n", enable_fast_lane_lut);
-    printf("log_file: %s\n", log_file.c_str());
+    //printf("surrounding_search_radius: %f\n", surrounding_search_radius);
+    //printf("enable_openloop_prediction: %d\n", enable_openloop_prediction);
+    //printf("enable_tracking_noise: %d\n", enable_tracking_noise);
+    //printf("enable_log: %d\n", enable_log);
+    //printf("enable_fast_lane_lut: %d\n", enable_fast_lane_lut);
+    //printf("log_file: %s\n", log_file.c_str());
   }
 };
 

@@ -12,16 +12,16 @@
 namespace common {
 
 void VehicleParam::print() const {
-  printf("VehicleParam:\n");
-  printf(" -- width:\t %lf.\n", width_);
-  printf(" -- length:\t %lf.\n", length_);
-  printf(" -- wheel_base:\t %lf.\n", wheel_base_);
-  printf(" -- front_suspension:\t %lf.\n", front_suspension_);
-  printf(" -- rear_suspension:\t %lf.\n", rear_suspension_);
-  printf(" -- d_cr:\t %lf.\n", d_cr_);
-  printf(" -- max_steering_angle:\t %lf.\n", max_steering_angle_);
-  printf(" -- max_longitudinal_acc:\t %lf.\n", max_longitudinal_acc_);
-  printf(" -- max_lateral_acc:\t %lf.\n", max_lateral_acc_);
+  //printf("VehicleParam:\n");
+  //printf(" -- width:\t %lf.\n", width_);
+  //printf(" -- length:\t %lf.\n", length_);
+  //printf(" -- wheel_base:\t %lf.\n", wheel_base_);
+  //printf(" -- front_suspension:\t %lf.\n", front_suspension_);
+  //printf(" -- rear_suspension:\t %lf.\n", rear_suspension_);
+  //printf(" -- d_cr:\t %lf.\n", d_cr_);
+  //printf(" -- max_steering_angle:\t %lf.\n", max_steering_angle_);
+  //printf(" -- max_longitudinal_acc:\t %lf.\n", max_longitudinal_acc_);
+  //printf(" -- max_lateral_acc:\t %lf.\n", max_lateral_acc_);
 }
 
 Vehicle::Vehicle() {}
@@ -52,9 +52,9 @@ ErrorType Vehicle::Ret3DofStateAtGeometryCenter(Vec3f *state) const {
 }
 
 void Vehicle::print() const {
-  printf("\nVehicle:\n");
-  printf(" -- ID:\t%d\n", id_);
-  printf(" -- Subclass:\t%s\n", subclass_.c_str());
+  //printf("\nVehicle:\n");
+  //printf(" -- ID:\t%d\n", id_);
+  //printf(" -- Subclass:\t%s\n", subclass_.c_str());
   param_.print();
   state_.print();
 }
@@ -93,12 +93,12 @@ ErrorType Vehicle::RetBumperVertices(std::array<Vec2f, 2> *vertices) const {
 }
 
 void VehicleSet::print() const {
-  printf("Vehicle Set Info:\n");
+  //printf("Vehicle Set Info:\n");
   for (auto iter = vehicles.begin(); iter != vehicles.end(); ++iter) {
-    printf("\n -- ID. %d:\n", iter->first);
+    //printf("\n -- ID. %d:\n", iter->first);
     iter->second.print();
   }
-  printf("\n");
+  //printf("\n");
 }
 
 VehicleControlSignal::VehicleControlSignal() {}
@@ -118,13 +118,13 @@ GridMapMetaInfo::GridMapMetaInfo(const int w, const int h, const double res)
 }
 
 void GridMapMetaInfo::print() const {
-  printf("GridMapMetaInfo:\n");
-  printf(" -- width:%d\n", width);
-  printf(" -- height:%d\n", height);
-  printf(" -- resolution:%lf\n", resolution);
-  printf(" -- w_metric:%lf\n", w_metric);
-  printf(" -- h_metric:%lf\n", h_metric);
-  printf("\n");
+  //printf("GridMapMetaInfo:\n");
+  //printf(" -- width:%d\n", width);
+  //printf(" -- height:%d\n", height);
+  //printf(" -- resolution:%lf\n", resolution);
+  //printf(" -- w_metric:%lf\n", w_metric);
+  //printf(" -- h_metric:%lf\n", h_metric);
+  //printf("\n");
 }
 
 template <typename T, int N_DIM>
@@ -149,7 +149,7 @@ template <typename T, int N_DIM>
 ErrorType GridMapND<T, N_DIM>::GetValueUsingCoordinate(
     const std::array<int, N_DIM> &coord, T *val) const {
   if (!CheckCoordInRange(coord)) {
-    // printf("[GridMapND] Out of range\n");
+    // //printf("[GridMapND] Out of range\n");
     return kWrongStatus;
   }
   int idx = GetMonoIdxUsingNDimIdx(coord);
@@ -194,7 +194,7 @@ template <typename T, int N_DIM>
 ErrorType GridMapND<T, N_DIM>::SetValueUsingCoordinate(
     const std::array<int, N_DIM> &coord, const T &val) {
   if (!CheckCoordInRange(coord)) {
-    // printf("[GridMapND] Out of range\n");
+    // //printf("[GridMapND] Out of range\n");
     return kWrongStatus;
   }
   int idx = GetMonoIdxUsingNDimIdx(coord);
@@ -327,57 +327,57 @@ template class GridMapND<int, 2>;
 template class GridMapND<int, 3>;
 
 void LaneRaw::print() const {
-  printf("Lane %d:\n", id);
-  printf(" -- dir:\t%d\n", dir);
+  //printf("Lane %d:\n", id);
+  //printf(" -- dir:\t%d\n", dir);
 
-  printf(" -- child_id:\t[");
+  //printf(" -- child_id:\t[");
   for (const auto &id : child_id) {
-    printf(" %d ", id);
+    //printf(" %d ", id);
   }
-  printf("]\n");
+  //printf("]\n");
 
-  printf(" -- father_id:\t[");
+  //printf(" -- father_id:\t[");
   for (const auto &id : father_id) {
-    printf(" %d ", id);
+    //printf(" %d ", id);
   }
-  printf("]\n");
-  printf(" -- length:\t%f\n", length);
-  printf(" -- l_lane_id:\t%d\n", l_lane_id);
-  printf(" -- l_change_avbl:\t%d\n", l_change_avbl);
-  printf(" -- r_lane_id:\t%d\n", r_lane_id);
-  printf(" -- r_change_avbl:\t%d\n", r_change_avbl);
+  //printf("]\n");
+  //printf(" -- length:\t%f\n", length);
+  //printf(" -- l_lane_id:\t%d\n", l_lane_id);
+  //printf(" -- l_change_avbl:\t%d\n", l_change_avbl);
+  //printf(" -- r_lane_id:\t%d\n", r_lane_id);
+  //printf(" -- r_change_avbl:\t%d\n", r_change_avbl);
 
-  printf(" -- behavior:\t%s\n", behavior.c_str());
+  //printf(" -- behavior:\t%s\n", behavior.c_str());
 
-  printf(" -- start_point: (%f, %f)\n", start_point(0), start_point(1));
-  printf(" -- final_point: (%f, %f)\n", final_point(0), final_point(1));
-  printf(" -- point number:\t%d\n", static_cast<int>(lane_points.size()));
+  //printf(" -- start_point: (%f, %f)\n", start_point(0), start_point(1));
+  //printf(" -- final_point: (%f, %f)\n", final_point(0), final_point(1));
+  //printf(" -- point number:\t%d\n", static_cast<int>(lane_points.size()));
 }
 
 void LaneNet::print() const {
-  printf("LaneNet:\n");
-  printf(" -- Number of lanes:\t%d\n", static_cast<int>(lane_set.size()));
+  //printf("LaneNet:\n");
+  //printf(" -- Number of lanes:\t%d\n", static_cast<int>(lane_set.size()));
   for (auto it = lane_set.begin(); it != lane_set.end(); ++it) {
     it->second.print();
   }
-  printf("\n");
+  //printf("\n");
 }
 
 void SemanticLaneSet::print() const {
-  printf("SemanticLaneSet:\n");
-  printf(" -- Number of lanes:\t%d\n", static_cast<int>(semantic_lanes.size()));
+  //printf("SemanticLaneSet:\n");
+  //printf(" -- Number of lanes:\t%d\n", static_cast<int>(semantic_lanes.size()));
 }
 
 void CircleObstacle::print() const {
-  printf("id: %d\n", id);
+  //printf("id: %d\n", id);
   circle.print();
-  printf("\n");
+  //printf("\n");
 }
 
 void PolygonObstacle::print() const {
-  printf("id: %d\n", id);
+  //printf("id: %d\n", id);
   polygon.print();
-  printf("\n");
+  //printf("\n");
 }
 
 void ObstacleSet::print() const {

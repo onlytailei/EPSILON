@@ -92,7 +92,7 @@ int main(int argc, char** argv) {
     auto vehicle_id = vehicle_ids[i];
     std::string topic_name =
         std::string("/ctrl/agent_") + std::to_string(vehicle_id);
-    printf("subscribing to %s\n", topic_name.c_str());
+    //printf("subscribing to %s\n", topic_name.c_str());
     _ros_sub[i] = nh.subscribe<vehicle_msgs::ControlSignal>(
         topic_name, 10, boost::bind(CtrlSignalCallback, _1, vehicle_id));
   }

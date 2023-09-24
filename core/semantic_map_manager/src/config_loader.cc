@@ -5,7 +5,7 @@ namespace semantic_map_manager {
 using Json = nlohmann::json;
 
 ErrorType ConfigLoader::ParseAgentConfig(AgentConfigInfo *p_agent_config) {
-  printf("\n[ConfigLoader] Loading vehicle set\n");
+  //printf("\n[ConfigLoader] Loading vehicle set\n");
 
   std::fstream fs(agent_config_path_);
   Json root;

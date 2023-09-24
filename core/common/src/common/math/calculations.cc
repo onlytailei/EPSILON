@@ -32,7 +32,7 @@ decimal_t vec2d_to_angle(const Vecf<2>& v) { return atan2(v[1], v[0]); }
 decimal_t truncate(const decimal_t& val_in, const decimal_t& lower,
                    const decimal_t& upper) {
   if (lower > upper) {
-    printf("[Calculations]Invalid input!\n");
+    //printf("[Calculations]Invalid input!\n");
     assert(false);
   }
   decimal_t res = val_in;
@@ -46,7 +46,7 @@ decimal_t normalize_with_bound(const decimal_t& val_in, const decimal_t& lower,
                                const decimal_t& new_lower,
                                const decimal_t& new_upper) {
   if (new_lower > new_upper) {
-    printf("[Calculations]Invalid input!\n");
+    //printf("[Calculations]Invalid input!\n");
     assert(false);
   }
   decimal_t val_bounded = truncate(val_in, lower, upper);

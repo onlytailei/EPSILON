@@ -12,7 +12,7 @@ ErrorType LaneGenerator::GetLaneBySampleInterpolation(
 
   if (spline_generator.GetCubicSplineBySampleInterpolation(
           samples, para, &spline) != kSuccess) {
-    // printf("[LaneBySampleInterpolation]Cannot get lane by interpolation.\n");
+    // //printf("[LaneBySampleInterpolation]Cannot get lane by interpolation.\n");
     return kWrongStatus;
   }
   lane->set_position_spline(spline);
@@ -33,7 +33,7 @@ ErrorType LaneGenerator::GetLaneBySamplePoints(const vec_Vecf<LaneDim>& samples,
   }
   if (common::LaneGenerator::GetLaneBySampleInterpolation(samples, para,
                                                           lane) != kSuccess) {
-    // printf("Cannot get lane.\n");
+    // //printf("Cannot get lane.\n");
     return kWrongStatus;
   }
   return kSuccess;
@@ -47,7 +47,7 @@ ErrorType LaneGenerator::GetLaneBySampleFitting(
 
   if (spline_generator.GetQuinticSplineBySampleFitting(
           samples, para, breaks, regulator, &spline) != kSuccess) {
-    // printf("[LaneBySampleInterpolation]Cannot get lane by fitting.\n");
+    // //printf("[LaneBySampleInterpolation]Cannot get lane by fitting.\n");
     return kWrongStatus;
   }
   lane->set_position_spline(spline);

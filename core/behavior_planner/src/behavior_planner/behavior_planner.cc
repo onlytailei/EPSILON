@@ -24,12 +24,12 @@ ErrorType BehaviorPlanner::RunMpdm() {
     behavior_.forward_behaviors = forward_behaviors_;
     behavior_.surround_trajs = surround_trajs_;
 
-    printf("[MPDM]MPDM desired velocity %lf in %lf.\n",
-           behavior_.actual_desired_velocity, reference_desired_velocity_);
-    printf("[MPDM]Time multi behavior judged in %lf ms.\n", timer.toc());
+    //printf("[MPDM]MPDM desired velocity %lf in %lf.\n",
+    //       behavior_.actual_desired_velocity, reference_desired_velocity_);
+    //printf("[MPDM]Time multi behavior judged in %lf ms.\n", timer.toc());
   } else {
-    printf("[MPDM]MPDM failed.\n");
-    printf("[MPDM]Time multi behavior judged in %lf ms.\n", timer.toc());
+    //printf("[MPDM]MPDM failed.\n");
+    //printf("[MPDM]Time multi behavior judged in %lf ms.\n", timer.toc());
     return kWrongStatus;
   }
   return kSuccess;
@@ -50,7 +50,7 @@ ErrorType BehaviorPlanner::RunRoutePlanner(const int nearest_lane_id) {
   p_route_planner_->set_nearest_lane_id(nearest_lane_id);
   if (p_route_planner_->RunOnce() == kSuccess) {
   }
-  // printf("[RoutePlanner]succeed in time %lf ms.\n", timer_rp.toc());
+  // //printf("[RoutePlanner]succeed in time %lf ms.\n", timer_rp.toc());
   return kSuccess;
 }
 
@@ -63,13 +63,13 @@ ErrorType BehaviorPlanner::RunOnce() {
   int ego_lane_id_by_pos = kInvalidLaneId;
   if (map_itf_->GetEgoLaneIdByPosition(p_route_planner_->navi_path(),
                                        &ego_lane_id_by_pos) != kSuccess) {
-    printf("[BP RunOnce]Err - Ego not on lane.\n");
+    //printf("[BP RunOnce]Err - Ego not on lane.\n");
     return kWrongStatus;
   }
 
   common::Vehicle ego_vehicle;
   if (map_itf_->GetEgoVehicle(&ego_vehicle) != kSuccess) {
-    printf("[MPDM]fail to get ego vehicle.\n");
+    //printf("[MPDM]fail to get ego vehicle.\n");
     return kWrongStatus;
   }
   ego_id_ = ego_vehicle.id();
@@ -85,20 +85,20 @@ ErrorType BehaviorPlanner::RunOnce() {
   LateralBehavior behavior_by_lane_id;
   if (JudgeBehaviorByLaneId(ego_lane_id_by_pos, &behavior_by_lane_id) !=
       kSuccess) {
-    printf("[RunOnce]fail to judge behavior by lane id!\n");
+    //printf("[RunOnce]fail to judge behavior by lane id!\n");
     return kWrongStatus;
   }
 
   UpdateEgoLaneId(ego_lane_id_by_pos);
-  printf("[MPDM]ego lane id: %d.\n", ego_lane_id_);
+  //printf("[MPDM]ego lane id: %d.\n", ego_lane_id_);
 
   if (UpdateEgoBehavior(behavior_by_lane_id) != kSuccess) {
-    printf("[RunOnce]fail to update ego behavior!\n");
+    //printf("[RunOnce]fail to update ego behavior!\n");
     return kWrongStatus;
   }
 
   if (behavior_.lat_behavior == common::LateralBehavior::kUndefined) {
-    // printf("[RunOnce]Err - Undefined system behavior!.\n");
+    // //printf("[RunOnce]Err - Undefined system behavior!.\n");
     // ! temporal solution lane keep at the current lane.
     behavior_.lat_behavior = common::LateralBehavior::kLaneKeeping;
   }
@@ -108,17 +108,17 @@ ErrorType BehaviorPlanner::RunOnce() {
     TicToc timer;
     planning::MultiModalForward::ParamLookUp(aggressive_level_, &sim_param_);
     if (RunMpdm() != kSuccess) {
-      printf("[Summary]Mpdm failed: %lf ms.\n", timer.toc());
-      // printf("[Stuck]Ego id %d on lane %d with behavior %d mpdm failed.\n",
+      //printf("[Summary]Mpdm failed: %lf ms.\n", timer.toc());
+      // //printf("[Stuck]Ego id %d on lane %d with behavior %d mpdm failed.\n",
       //        ego_vehicle.id(), ego_lane_id_,
       //        static_cast<int>(behavior_.lat_behavior));
       return kWrongStatus;
     } else {
-      // printf("[Stuck]Ego id %d on lane %d with behavior %d mpdm success.\n",
+      // //printf("[Stuck]Ego id %d on lane %d with behavior %d mpdm success.\n",
       //        ego_vehicle.id(), ego_lane_id_,
       //        static_cast<int>(behavior_.lat_behavior));
     }
-    printf("[Summary]Mpdm time cost: %lf ms.\n", timer.toc());
+    //printf("[Summary]Mpdm time cost: %lf ms.\n", timer.toc());
   }
 
   if (ConstructReferenceLane(behavior_.lat_behavior, &behavior_.ref_lane) !=
@@ -134,13 +134,13 @@ ErrorType BehaviorPlanner::MultiBehaviorJudge(
   // * get relevant information
   common::SemanticVehicleSet semantic_vehicle_set;
   if (map_itf_->GetKeySemanticVehicles(&semantic_vehicle_set) != kSuccess) {
-    printf("[MPDM]fail to get key vehicles.\n");
+    //printf("[MPDM]fail to get key vehicles.\n");
     return kWrongStatus;
   }
 
   common::Vehicle ego_vehicle;
   if (map_itf_->GetEgoVehicle(&ego_vehicle) != kSuccess) {
-    printf("[MPDM]fail to get ego vehicle.\n");
+    //printf("[MPDM]fail to get ego vehicle.\n");
     return kWrongStatus;
   }
 
@@ -193,15 +193,15 @@ ErrorType BehaviorPlanner::MultiBehaviorJudge(
     if (SimulateEgoBehavior(ego_vehicle, potential_behaviors[i],
                             semantic_vehicle_set, &traj,
                             &sur_trajs) != kSuccess) {
-      printf("[MPDM]fail to sim %d forward.\n",
-             static_cast<int>(potential_behaviors[i]));
+      //printf("[MPDM]fail to sim %d forward.\n",
+      //       static_cast<int>(potential_behaviors[i]));
       continue;
     }
     valid_behaviors.push_back(potential_behaviors[i]);
     valid_forward_trajs.push_back(traj);
     valid_surround_trajs.push_back(sur_trajs);
   }
-  // printf("[Summary]Time in simulate all the behaviors: %lf ms.\n",
+  // //printf("[Summary]Time in simulate all the behaviors: %lf ms.\n",
   // timer.toc());
 
   // ! cache
@@ -212,7 +212,7 @@ ErrorType BehaviorPlanner::MultiBehaviorJudge(
   // * judge forward trajs
   int num_valid_behaviors = static_cast<int>(valid_behaviors.size());
   if (num_valid_behaviors < 1) {
-    printf("[MPDM]No valid behaviors.\n");
+    //printf("[MPDM]No valid behaviors.\n");
     return kWrongStatus;
   }
 
@@ -223,10 +223,10 @@ ErrorType BehaviorPlanner::MultiBehaviorJudge(
                                valid_surround_trajs, &winner_behavior,
                                &winner_forward_traj, &winner_score,
                                &winner_desired_vel) != kSuccess) {
-    printf("[MPDM]fail to evaluate multiple policy trajs.\n");
+    //printf("[MPDM]fail to evaluate multiple policy trajs.\n");
     return kWrongStatus;
   }
-  // printf("[Stuck]id: %d choose behavior %d with cost: %lf.\n",
+  // //printf("[Stuck]id: %d choose behavior %d with cost: %lf.\n",
   // ego_vehicle.id(),
   //        static_cast<int>(winner_behavior), winner_score);
 
@@ -328,7 +328,7 @@ ErrorType BehaviorPlanner::SimulateEgoBehavior(
           ego_vehicle.state(), p_route_planner_->navi_path(), ego_behavior,
           forward_lane_len, max_backward_len, false,
           &ego_reflane) != kSuccess) {
-    printf("[MPDM]fail to get ego reference lane.\n");
+    //printf("[MPDM]fail to get ego reference lane.\n");
     return kWrongStatus;
   }
 
@@ -343,20 +343,20 @@ ErrorType BehaviorPlanner::SimulateEgoBehavior(
       std::make_pair(ego_vehicle.id(), ego_semantic_vehicle));
 
   // ~ multi-agent forward
-  printf("[MPDM]simulating behavior %d.\n", static_cast<int>(ego_behavior));
+  //printf("[MPDM]simulating behavior %d.\n", static_cast<int>(ego_behavior));
   if (MultiAgentSimForward(ego_vehicle.id(), semantic_vehicle_set_tmp, traj,
                            surround_trajs) != kSuccess) {
-    printf("[MPDM]multi agent forward under %d failed.\n",
-           static_cast<int>(ego_behavior));
+    //printf("[MPDM]multi agent forward under %d failed.\n",
+    //       static_cast<int>(ego_behavior));
     if (OpenloopSimForward(ego_semantic_vehicle, semantic_vehicle_set, traj,
                            surround_trajs) != kSuccess) {
-      printf("[MPDM]open loop forward under %d failed.\n",
-             static_cast<int>(ego_behavior));
+      //printf("[MPDM]open loop forward under %d failed.\n",
+      //       static_cast<int>(ego_behavior));
       return kWrongStatus;
     }
   }
-  printf("[MPDM]behavior %d traj num of states: %d.\n",
-         static_cast<int>(ego_behavior), static_cast<int>(traj->size()));
+  //printf("[MPDM]behavior %d traj num of states: %d.\n",
+  //       static_cast<int>(ego_behavior), static_cast<int>(traj->size()));
   return kSuccess;
 }
 
@@ -379,7 +379,7 @@ ErrorType BehaviorPlanner::EvaluateMultiPolicyTrajs(
     decimal_t score, vel;
     EvaluateSinglePolicyTraj(valid_behaviors[i], valid_forward_trajs[i],
                              valid_surround_trajs[i], &score, &vel);
-    // printf("[Stuck]id: %d behavior %d with cost: %lf.\n", ego_id_,
+    // //printf("[Stuck]id: %d behavior %d with cost: %lf.\n", ego_id_,
     //        static_cast<int>(valid_behaviors[i]), score);
 
     if (score < min_score) {
@@ -389,8 +389,8 @@ ErrorType BehaviorPlanner::EvaluateMultiPolicyTrajs(
       traj = valid_forward_trajs[i];
     }
   }
-  printf("[MPDM]choose behavior %d with cost %lf.\n",
-         static_cast<int>(behavior), min_score);
+  //printf("[MPDM]choose behavior %d with cost %lf.\n",
+  //       static_cast<int>(behavior), min_score);
   *winner_forward_traj = traj;
   *winner_behavior = behavior;
   *winner_score = min_score;
@@ -452,8 +452,8 @@ ErrorType BehaviorPlanner::EvaluateSinglePolicyTraj(
           ego_vehicle_terminal.state(), p_route_planner_->navi_path(),
           common::LateralBehavior::kLaneKeeping, forward_lane_len,
           max_backward_len, false, &ego_ref_lane) != kSuccess) {
-    printf("fail to get ego ref lane duration evaluation for behavior %d.\n",
-           static_cast<int>(behavior));
+    //printf("fail to get ego ref lane duration evaluation for behavior %d.\n",
+    //       static_cast<int>(behavior));
   }
 
   decimal_t cost_efficiency_leading_to_desired_vel = 0.0;
@@ -494,12 +494,12 @@ ErrorType BehaviorPlanner::EvaluateSinglePolicyTraj(
     cost_action += 0.5;
   }
   *score = cost_action + cost_safety + cost_efficiency;
-  printf(
-      "[CostDebug]behaivor %d: (action %lf, safety %lf, efficiency ego %lf, "
-      "leading %lf).\n",
-      static_cast<int>(behavior), cost_action, cost_safety,
-      cost_efficiency_ego_to_desired_vel,
-      cost_efficiency_leading_to_desired_vel);
+  //printf(
+  //    "[CostDebug]behaivor %d: (action %lf, safety %lf, efficiency ego %lf, "
+  //    "leading %lf).\n",
+  //    static_cast<int>(behavior), cost_action, cost_safety,
+  //    cost_efficiency_ego_to_desired_vel,
+  //    cost_efficiency_leading_to_desired_vel);
   GetDesiredVelocityOfTrajectory(forward_traj, desired_vel);
   return kSuccess;
 }
@@ -583,7 +583,7 @@ ErrorType BehaviorPlanner::MultiAgentSimForward(
               common::StateTransformer(v.second.lane), v.second.vehicle,
               leading_vehicle, sim_resolution_, sim_param_,
               &state) != kSuccess) {
-        printf("[MPDM]fail to forward with leading vehicle.\n");
+        //printf("[MPDM]fail to forward with leading vehicle.\n");
         return kWrongStatus;
       }
 
@@ -591,7 +591,7 @@ ErrorType BehaviorPlanner::MultiAgentSimForward(
       state.time_stamp = init_stamp + (i + 1) * sim_resolution_;
       state_cache.insert(std::make_pair(v.first, state));
     }
-    // printf("[Summary]single propogate once time: %lf.\n", timer.toc());
+    // //printf("[Summary]single propogate once time: %lf.\n", timer.toc());
 
     // use state cache to update vehicle set
     for (auto& s : state_cache) {
@@ -617,22 +617,22 @@ ErrorType BehaviorPlanner::ConstructReferenceLane(
   if (lat_behavior == common::LateralBehavior::kLaneKeeping ||
       lat_behavior == common::LateralBehavior::kUndefined) {
     target_lane_id = ego_lane_id_;
-    // printf("[BP]Commanding keep lane %d.\n", target_lane_id);
+    // //printf("[BP]Commanding keep lane %d.\n", target_lane_id);
   } else if (lat_behavior == common::LateralBehavior::kLaneChangeLeft) {
     if (map_itf_->GetLeftLaneId(ego_lane_id_, &target_lane_id) != kSuccess) {
-      printf("[BP]Commanding a left lane change, but no existing lane.\n");
+      //printf("[BP]Commanding a left lane change, but no existing lane.\n");
       target_lane_id = ego_lane_id_;
       behavior_.lat_behavior = common::LateralBehavior::kLaneKeeping;
     }
-    // printf("[BP]Commanding a left lane change %d --> %d.\n", ego_lane_id_,
+    // //printf("[BP]Commanding a left lane change %d --> %d.\n", ego_lane_id_,
     //        target_lane_id);
   } else if (lat_behavior == common::LateralBehavior::kLaneChangeRight) {
     if (map_itf_->GetRightLaneId(ego_lane_id_, &target_lane_id) != kSuccess) {
-      printf("[BP]Commanding a right lane change, but no existing lane.\n");
+      //printf("[BP]Commanding a right lane change, but no existing lane.\n");
       target_lane_id = ego_lane_id_;
       behavior_.lat_behavior = common::LateralBehavior::kLaneKeeping;
     }
-    // printf("[BP]Commanding a right lane change %d --> %d.\n", ego_lane_id_,
+    // //printf("[BP]Commanding a right lane change %d --> %d.\n", ego_lane_id_,
     //        target_lane_id);
   } else {
     assert(false);
@@ -693,7 +693,7 @@ ErrorType BehaviorPlanner::ConstructReferenceLane(
   reference_desired_velocity_ =
       std::floor(std::min(std::max(v_ref - 2.0, 0.0), user_desired_velocity_));
 
-  // printf("[DEBUG]reference desired vel %lf.\n", reference_desired_velocity_);
+  // //printf("[DEBUG]reference desired vel %lf.\n", reference_desired_velocity_);
   return kSuccess;
 }
 
@@ -718,7 +718,7 @@ ErrorType BehaviorPlanner::ConstructLaneFromSamples(
   const decimal_t regulator = (double)1e6;
   if (common::LaneGenerator::GetLaneBySampleFitting(
           samples, para, breaks, regulator, lane) != kSuccess) {
-    // printf("fitting error.\n");
+    // //printf("fitting error.\n");
     return kWrongStatus;
   }
   return kSuccess;

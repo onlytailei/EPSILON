@@ -88,11 +88,11 @@ ErrorType TrafficSignalManager::LoadSignals() {
 }
 
 ErrorType TrafficSignalManager::UpdateSignals(const decimal_t time_elapsed) {
-  // printf("[xx]time elapsed: %lf.\n", time_elapsed);
+  // //printf("[xx]time elapsed: %lf.\n", time_elapsed);
   for (auto it = speed_limit_list_.begin(); it < speed_limit_list_.end();) {
     Vec2f valid_time = it->valid_time();
     if (time_elapsed < valid_time[0] || time_elapsed > valid_time[1]) {
-      printf("[xxxxx]signal erased at %lf.\n", time_elapsed);
+      //printf("[xxxxx]signal erased at %lf.\n", time_elapsed);
       it = speed_limit_list_.erase(it);
     } else {
       ++it;
@@ -107,7 +107,7 @@ ErrorType TrafficSignalManager::GetSpeedLimit(const State& state,
   common::StateTransformer stf(lane);
   common::FrenetState ref_fs;
   if (stf.GetFrenetStateFromState(state, &ref_fs) != kSuccess) {
-    // printf("[GetSpeedLimit]Cannot get ref state frenet state.\n");
+    // //printf("[GetSpeedLimit]Cannot get ref state frenet state.\n");
     return kWrongStatus;
   }
 
@@ -129,13 +129,13 @@ ErrorType TrafficSignalManager::GetSpeedLimit(const State& state,
                      state.velocity * state.velocity) /
                     (2.0 * acc_esti)
               : 0.0;
-      // printf("[denny]cur vel %lf limit max vel %lf, effect dist %lf.\n",
+      // //printf("[denny]cur vel %lf limit max vel %lf, effect dist %lf.\n",
       //        state.velocity, speed_limit.max_velocity(),
       //        effect_speed_limit_dist);
       // if (intersection_type == kSignalAhead)
-      //   printf("[denny]Speed limit ahead.\n");
+      //   //printf("[denny]Speed limit ahead.\n");
       // if (intersection_type == kSignalControlled)
-      //   printf("[denny]under speed limit control.\n");
+      //   //printf("[denny]under speed limit control.\n");
       if ((intersection_type == kSignalAhead &&
            dist_to_startpt < effect_speed_limit_dist) ||
           intersection_type == kSignalControlled) {

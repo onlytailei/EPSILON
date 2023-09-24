@@ -58,9 +58,9 @@ ErrorType MobilBehaviorPrediction::LateralBehaviorPrediction(
     const vec_E<common::FrenetState> &follow_frenet_states,
     const common::VehicleSet &nearby_vehicles, ProbDistOfLatBehaviors *res) {
   if (lanes.size() != 3) {
-    printf(
-        "[MobilBehaviorPrediction]Must have three lanes (invalid also "
-        "acceptable).\n");
+    //printf(
+    //    "[MobilBehaviorPrediction]Must have three lanes (invalid also "
+    //    "acceptable).\n");
     return kWrongStatus;
   }
 
@@ -100,7 +100,7 @@ ErrorType MobilBehaviorPrediction::LateralBehaviorPrediction(
     if (MobilLaneChangingModel::GetMobilAccChangesOnCurrentLane(
             ego_frenet_state, leading_vehicle, leading_fs, following_vehicle,
             following_fs, &acc_o, &acc_o_tilda, &acc_c) != kSuccess) {
-      printf("[MobilBehaviorPrediction]lane-keep lane not valid.\n");
+      //printf("[MobilBehaviorPrediction]lane-keep lane not valid.\n");
       return kWrongStatus;
     }
   } else {
@@ -157,8 +157,8 @@ ErrorType MobilBehaviorPrediction::LateralBehaviorPrediction(
 
   RemapGainsToProb(is_lcl_safe, mobil_gain_left, is_lcr_safe, mobil_gain_right,
                    res);
-  printf("[Mobil]%d, Left gain: %.3lf, Right gain: %.3lf\n", vehicle.id(),
-         mobil_gain_left, mobil_gain_right);
+  //printf("[Mobil]%d, Left gain: %.3lf, Right gain: %.3lf\n", vehicle.id(),
+  //       mobil_gain_left, mobil_gain_right);
   return kSuccess;
 }
 

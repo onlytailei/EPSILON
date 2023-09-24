@@ -67,8 +67,8 @@ void RandomBehavior() {
     std::uniform_real_distribution<double> dist_vel(-2, 5);
     vel_noise = dist_vel(rng);
     p_bp_server_->set_user_desired_velocity(desired_vel + vel_noise);
-    printf("[OnlaneAi]%d - desired velocity: %lf\n", ego_id,
-           desired_vel + vel_noise);
+    //printf("[OnlaneAi]%d - desired velocity: %lf\n", ego_id,
+    //       desired_vel + vel_noise);
   }
   cnt++;
   if (cnt >= 2000) cnt = 0;
@@ -115,7 +115,7 @@ void PublishControl() {
           common::StateTransformer(last_smm.ego_behavior().ref_lane),
           ego_vehicle, leading_vehicle, delta_t, sim_param,
           &state) != kSuccess) {
-    printf("[AiAgent]Err-Simulation error (with leading vehicle).\n");
+    //printf("[AiAgent]Err-Simulation error (with leading vehicle).\n");
     return;
   }
 
@@ -171,7 +171,7 @@ int main(int argc, char** argv) {
   // aggressiveness_level = dist_agg(rng);
   // aggressiveness_level = 5;
   planning::MultiModalForward::ParamLookUp(aggressiveness_level, &sim_param);
-  printf("[OnlaneAi]%d - aggresive: %d\n", ego_id, aggressiveness_level);
+  //printf("[OnlaneAi]%d - aggresive: %d\n", ego_id, aggressiveness_level);
 
   // Declare smm
   semantic_map_manager::SemanticMapManager semantic_map_manager(

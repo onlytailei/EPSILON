@@ -34,7 +34,7 @@ ErrorType RssChecker::CalculateSafeLongitudinalDistance(
                                   (2 * config.longitudinal_brake_min);
       ret = ego_distance_driven + other_distance_driven;
     } else {
-      // printf("[RssChecker]Currently do not support rear gear %lf.\n",
+      // //printf("[RssChecker]Currently do not support rear gear %lf.\n",
       // ego_vel);
       ret = 0.0;
     }
@@ -52,7 +52,7 @@ ErrorType RssChecker::CalculateSafeLongitudinalDistance(
     } else if (ego_vel >= 0.0 && other_vel <= 0.0) {
       ret = 0.0;
     } else {
-      // printf("[RssChecker]Currently do not support rear gear %lf.\n",
+      // //printf("[RssChecker]Currently do not support rear gear %lf.\n",
       // ego_vel);
       ret = 0.0;
     }
@@ -194,7 +194,7 @@ ErrorType RssChecker::CalculateSafeLateralDistance(
       // -------------------------------
       ret = ego_passive_brake_distance + other_passive_brake_distance;
     } else {
-      // printf("[RssChecker]Lat Error configuration.\n");
+      // //printf("[RssChecker]Lat Error configuration.\n");
       // assert(false);
       ret = 0.0;
     }
@@ -228,7 +228,7 @@ ErrorType RssChecker::CalculateSafeLateralDistance(
       // -------------------------------
       ret = 0.0;
     } else {
-      // printf("[RssChecker]Lat Error configuration.\n");
+      // //printf("[RssChecker]Lat Error configuration.\n");
       // assert(false);
       ret = 0.0;
     }
@@ -296,12 +296,12 @@ ErrorType RssChecker::RssCheck(const Vehicle& ego_vehicle,
   // TODO(lu.zhang): construct stf is a little bit heavy
   // StateTransformer stf(ref_lane);
   if (stf.GetFrenetStateFromState(ego_vehicle.state(), &ego_fs) != kSuccess) {
-    printf("[RssChecker]ego not on ref lane.\n");
+    //printf("[RssChecker]ego not on ref lane.\n");
     return kWrongStatus;
   }
   if (stf.GetFrenetStateFromState(other_vehicle.state(), &other_fs) !=
       kSuccess) {
-    printf("[RssChecker]other %d not on ref lane.\n", other_vehicle.id());
+    //printf("[RssChecker]other %d not on ref lane.\n", other_vehicle.id());
     return kWrongStatus;
   }
 

@@ -97,7 +97,7 @@ class BezierSpline {
     } else {
       decimal_t duration = vec_domain_[idx + 1] - vec_domain_[idx];
       decimal_t normalized_s = h / duration;
-      // printf("derivative %d, normalized s: %lf.\n", d, normalized_s);
+      // //printf("derivative %d, normalized s: %lf.\n", d, normalized_s);
       Vecf<N_DEG + 1> basis =
           BezierUtils<N_DEG>::GetBezierBasis(d, normalized_s);
       Vecf<N_DIM> result =
@@ -109,9 +109,9 @@ class BezierSpline {
   }
 
   void print() const {
-    printf("Bezier control points.\n");
+    //printf("Bezier control points.\n");
     for (int j = 0; j < static_cast<int>(ctrl_pts_.size()); j++) {
-      printf("segment %d -->.\n", j);
+      //printf("segment %d -->.\n", j);
       std::cout << ctrl_pts_[j] << std::endl;
     }
   }
@@ -186,7 +186,7 @@ class BezierUtils {
         }
         break;
       default:
-        printf("N_DEG %d, derivative_degree %d.\n", N_DEG, derivative_degree);
+        //printf("N_DEG %d, derivative_degree %d.\n", N_DEG, derivative_degree);
         assert(false);
         break;
     }

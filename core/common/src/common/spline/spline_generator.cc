@@ -9,15 +9,15 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetCubicSplineBySampleInterpolation(
     const vec_Vecf<N_DIM>& samples, const std::vector<decimal_t>& para,
     SplineType* spline) {
   if (samples.size() < 3) {
-    // printf("[SampleInterpolation]input sample size: %d.\n",
+    // //printf("[SampleInterpolation]input sample size: %d.\n",
     //        static_cast<int>(samples.size()));
     return kWrongStatus;
   }
   if (samples.size() != para.size()) return kIllegalInput;
   if (N_DEG < 3) {
-    printf(
-        "[CubicSplineBySampleInterpolation]Currently we just support "
-        "interpolation >= cubic(3).\n");
+    //printf(
+    //    "[CubicSplineBySampleInterpolation]Currently we just support "
+    //    "interpolation >= cubic(3).\n");
     return kWrongStatus;
   }
 
@@ -90,20 +90,20 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetQuinticSplineBySampleFitting(
     const Eigen::ArrayXf& breaks, const decimal_t regulator,
     SplineType* spline) {
   // ~ the polynomial order follows the definition in polynomial.h
-  // printf("number of samples: %d.\n", static_cast<int>(samples.size()));
+  // //printf("number of samples: %d.\n", static_cast<int>(samples.size()));
   // std::cout << "breaks: " << breaks.transpose() << std::endl;
 
   if (N_DEG < 5) {
-    printf("[QuinticSpline]Degree not support.\n");
+    //printf("[QuinticSpline]Degree not support.\n");
     return kWrongStatus;
   }
   if (breaks.size() < 2) {
-    printf("[QuinticSpline]Cannot support less than two segment.\n");
+    //printf("[QuinticSpline]Cannot support less than two segment.\n");
     return kWrongStatus;
   }
 
   if (samples.size() < 3) {
-    // printf("[QuinticSpline]Cannot support less than three samples.\n");
+    // //printf("[QuinticSpline]Cannot support less than three samples.\n");
     return kWrongStatus;
   }
 
@@ -127,7 +127,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetQuinticSplineBySampleFitting(
       auto upper_it = std::upper_bound(para.begin(), para.end(), ubd);
       // int idx_low = static_cast<int>(lower_it - para.begin());
       int idx_up = static_cast<int>(upper_it - para.begin());
-      // printf("idx_low: %d, idx_up: %d.\n", idx_low, idx_up);
+      // //printf("idx_low: %d, idx_up: %d.\n", idx_low, idx_up);
       for (int i = idx_low; i < idx_up; i++) {
         sub_samples.push_back(para[i] - lbd);
       }
@@ -234,7 +234,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetQuinticSplineBySampleFitting(
   c.setZero();
 
   // double t_elapsed = timer.toc();
-  // printf("time consumed in wrap constraints: %lf.\n", t_elapsed);
+  // //printf("time consumed in wrap constraints: %lf.\n", t_elapsed);
 
   Eigen::VectorXd x(N_DIM * num_segments * num_order);
   if (QuadraticProblem::solve(A, S, b, W, C, c, x)) {
@@ -253,7 +253,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetQuinticSplineBySampleFitting(
     }
     (*spline) = std::move(quintic_spline);
   } else {
-    printf("solver failed.\n");
+    //printf("solver failed.\n");
     return kWrongStatus;
   }
 
@@ -289,13 +289,13 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetSplineFromStateVec(
     const std::vector<decimal_t>& para, const vec_E<State>& state_vec,
     SplineType* spline) {
   if (N_DEG < 5) {
-    printf(
-        "[GetSplineFromStateVec]To fit state vec we need at least 5 "
-        "degree.\n");
+    //printf(
+    //    "[GetSplineFromStateVec]To fit state vec we need at least 5 "
+    //    "degree.\n");
     return kWrongStatus;
   }
   if (para.size() < 2) {
-    printf("[GetSplineFromStateVec]failed to get spline from state vec.\n");
+    //printf("[GetSplineFromStateVec]failed to get spline from state vec.\n");
     return kWrongStatus;
   }
 
@@ -324,13 +324,13 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetSplineFromFreeStateVec(
     const std::vector<decimal_t>& para, const vec_E<FreeState>& free_state_vec,
     SplineType* spline) {
   if (N_DEG < 5) {
-    printf(
-        "[GetSplineFromStateVec]To fit state vec we need at least 5 "
-        "degree.\n");
+    //printf(
+    //    "[GetSplineFromStateVec]To fit state vec we need at least 5 "
+    //    "degree.\n");
     return kWrongStatus;
   }
   if (para.size() < 2) {
-    printf("[GetSplineFromStateVec]failed to get spline from state vec.\n");
+    //printf("[GetSplineFromStateVec]failed to get spline from state vec.\n");
     return kWrongStatus;
   }
   assert(para.size() == free_state_vec.size());
@@ -445,7 +445,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
   // ~ Stage II: stack equality constraints
   int num_continuity = 3;  // continuity up to jerk
   int num_connections = num_segments - 1;
-  // printf("num conenctions: %d.\n", num_connections);
+  // //printf("num conenctions: %d.\n", num_connections);
   int num_continuity_constraints = N_DIM * num_connections * num_continuity;
   int num_start_eq_constraints =
       static_cast<int>(start_constraints.size()) * N_DIM;
@@ -568,7 +568,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           } else if (j == 1) {
             idy = d * num_segments * num_order + n * num_order + 0;
             val = -1.0 * N_DEG * scale;
@@ -578,7 +578,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           } else if (j == 2) {
             idy = d * num_segments * num_order + n * num_order + 0;
             val = 1.0 * N_DEG * (N_DEG - 1) * scale;
@@ -593,7 +593,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           }
         }
       }
@@ -722,7 +722,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
   Eigen::VectorXd x;
   x.setZero(total_num_vals);
   if (!OoQpItf::solve(Q, c, A, b, C, lbd, ubd, l, u, x, true, false)) {
-    printf("[GetBezierSplineUsingCorridor]Solver error.\n");
+    //printf("[GetBezierSplineUsingCorridor]Solver error.\n");
     return kWrongStatus;
   }
 
@@ -788,7 +788,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
   // ~ Stage II: stack equality constraints
   int num_continuity = 3;  // continuity up to jerk
   int num_connections = num_segments - 1;
-  // printf("num conenctions: %d.\n", num_connections);
+  // //printf("num conenctions: %d.\n", num_connections);
   int num_continuity_constraints = N_DIM * num_connections * num_continuity;
   int num_start_eq_constraints =
       static_cast<int>(start_constraints.size()) * N_DIM;
@@ -911,7 +911,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           } else if (j == 1) {
             idy = d * num_segments * num_order + n * num_order + 0;
             val = -1.0 * N_DEG * scale;
@@ -921,7 +921,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           } else if (j == 2) {
             idy = d * num_segments * num_order + n * num_order + 0;
             val = 1.0 * N_DEG * (N_DEG - 1) * scale;
@@ -936,7 +936,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
             A.insert(idx, idy) = val;
 
             b[idx] = start_constraints[j][d];
-            // printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
+            // //printf("d: %d, j: %d, idx: %d, b: %lf.\n", d, j, idx, b[idx]);
           }
         }
       }
@@ -1065,7 +1065,7 @@ ErrorType SplineGenerator<N_DEG, N_DIM>::GetBezierSplineUsingCorridor(
   Eigen::VectorXd x;
   x.setZero(total_num_vals);
   if (!OoQpItf::solve(Q, c, A, b, C, lbd, ubd, l, u, x, true, false)) {
-    printf("[GetBezierSplineUsingCorridor]Solver error.\n");
+    //printf("[GetBezierSplineUsingCorridor]Solver error.\n");
     return kWrongStatus;
   }
 

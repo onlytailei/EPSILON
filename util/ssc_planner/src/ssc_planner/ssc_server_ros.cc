@@ -45,7 +45,7 @@ void SscPlannerServer::PublishData() {
   {
     TicToc timer;
     p_ssc_vis_->VisualizeDataWithStamp(ros::Time(current_time), planner_);
-    printf("[SscPlannerServer]ssc vis all time cost: %lf ms\n", timer.toc());
+    //printf("[SscPlannerServer]ssc vis all time cost: %lf ms\n", timer.toc());
   }
 
   // trajectory feedback
@@ -53,9 +53,9 @@ void SscPlannerServer::PublishData() {
     if (executing_traj_ == nullptr || !executing_traj_->IsValid()) return;
 
     if (use_sim_state_) {
-      printf("[SscPlannerServer]use_sim_state_: true.\n");
+      //printf("[SscPlannerServer]use_sim_state_: true.\n");
     } else {
-      printf("[SscPlannerServer]use_sim_state_: false.\n");
+      //printf("[SscPlannerServer]use_sim_state_: false.\n");
     }
 
     if (use_sim_state_) {
@@ -76,10 +76,10 @@ void SscPlannerServer::PublishData() {
               std::string("map"), &ctrl_msg);
           ctrl_signal_pub_.publish(ctrl_msg);
         } else {
-          printf(
-              "[SscPlannerServer]cannot evaluate state at %lf with begin "
-              "%lf.\n",
-              ct, executing_traj_->begin());
+          //printf(
+          //    "[SscPlannerServer]cannot evaluate state at %lf with begin "
+          //    "%lf.\n",
+          //    ct, executing_traj_->begin());
         }
       }
     }
@@ -128,11 +128,11 @@ ErrorType SscPlannerServer::FilterSingularityState(
   if (fabs(filter_state->velocity) < singular_velocity &&
       fabs(normalize_angle(filter_state->angle - hist.back().angle)) >
           max_orientation_change) {
-    printf(
-        "[SscPlannerServer]Detect singularity velocity %lf angle (%lf, %lf).\n",
-        filter_state->velocity, hist.back().angle, filter_state->angle);
+    //printf(
+    //    "[SscPlannerServer]Detect singularity velocity %lf angle (%lf, %lf).\n",
+    //    filter_state->velocity, hist.back().angle, filter_state->angle);
     filter_state->angle = hist.back().angle;
-    printf("[SscPlannerServer]Filter angle to %lf.\n", hist.back().angle);
+    //printf("[SscPlannerServer]Filter angle to %lf.\n", hist.back().angle);
   }
   return kSuccess;
 }
@@ -157,7 +157,7 @@ void SscPlannerServer::Start() {
     return;
   }
   planner_.set_map_interface(&map_adapter_);
-  printf("[SscPlannerServer]Planner server started.\n");
+  //printf("[SscPlannerServer]Planner server started.\n");
   is_replan_on_ = true;
 
   std::thread(&SscPlannerServer::MainThread, this).detach();
@@ -180,7 +180,7 @@ void SscPlannerServer::PlanCycleCallback() {
   if (!is_replan_on_) {
     return;
   }
-  // printf("input buffer size: %d.\n", p_input_smm_buff_->size_approx());
+  // //printf("input buffer size: %d.\n", p_input_smm_buff_->size_approx());
   // is_map_updated_ = false;  // return when no new map
   while (p_input_smm_buff_->try_dequeue(last_smm_)) {
     is_map_updated_ = true;
@@ -196,12 +196,12 @@ void SscPlannerServer::PlanCycleCallback() {
   PublishData();
 
   auto current_time = ros::Time::now().toSec();
-  printf("[SscPlannerServer]>>>>>>>current time %lf.\n", current_time);
+  //printf("[SscPlannerServer]>>>>>>>current time %lf.\n", current_time);
   if (executing_traj_ == nullptr || !executing_traj_->IsValid() ||
       !use_sim_state_) {
     // Init planning
     if (planner_.RunOnce() != kSuccess) {
-      // printf("[SscPlannerServer]Initial planning failed.\n");
+      // //printf("[SscPlannerServer]Initial planning failed.\n");
       return;
     }
 
@@ -211,17 +211,17 @@ void SscPlannerServer::PlanCycleCallback() {
     ctrl_state_hist_.push_back(last_smm_.ego_vehicle().state());
     executing_traj_ = std::move(planner_.trajectory());
     global_init_stamp_ = executing_traj_->begin();
-    printf(
-        "[SscPlannerServer]init plan success with stamp: %lf and angle %lf.\n",
-        global_init_stamp_, last_smm_.ego_vehicle().state().angle);
+    //printf(
+    //    "[SscPlannerServer]init plan success with stamp: %lf and angle %lf.\n",
+    //    global_init_stamp_, last_smm_.ego_vehicle().state().angle);
     return;
   }
 
   if (current_time > executing_traj_->end()) {
-    printf("[SscPlannerServer]Current time %lf out of [%lf, %lf].\n",
-           current_time, executing_traj_->begin(), executing_traj_->end());
-    printf("[SscPlannerServer]Mission complete.\n");
-    // is_replan_on_ = false;
+    //printf("[SscPlannerServer]Current time %lf out of [%lf, %lf].\n",
+    //       current_time, executing_traj_->begin(), executing_traj_->end());
+    //printf("[SscPlannerServer]Mission complete.\n");
+    is_replan_on_ = false;
     executing_traj_.release();
     next_traj_.release();
     return;
@@ -259,23 +259,23 @@ void SscPlannerServer::Replan() {
           : num_cycles_exec + 1;
   decimal_t t = global_init_stamp_ + plan_horizon * num_cycles_ahead;
 
-  printf(
-      "[SscPlannerServer]init stamp: %lf, plan horizon: %lf, num cycles %d.\n",
-      global_init_stamp_, plan_horizon, num_cycles_ahead);
-  printf(
-      "[SscPlannerServer]Replan at cur time %lf with executing traj begin "
-      "time: %lf to rounded t: %lf.\n",
-      cur_time, executing_traj_->begin(), t);
+  //printf(
+  //    "[SscPlannerServer]init stamp: %lf, plan horizon: %lf, num cycles %d.\n",
+  //    global_init_stamp_, plan_horizon, num_cycles_ahead);
+  //printf(
+  //    "[SscPlannerServer]Replan at cur time %lf with executing traj begin "
+  //    "time: %lf to rounded t: %lf.\n",
+  //    cur_time, executing_traj_->begin(), t);
 
   if (executing_traj_->GetState(t, &desired_state) != kSuccess) {
-    printf("[SscPlannerServer]Cannot get desired state at %lf.\n", t);
+    //printf("[SscPlannerServer]Cannot get desired state at %lf.\n", t);
     return;
   }
-  printf(
-      "[SscPlannerServer]t %lf, desired state (x,y,v,a,theta):(%lf, %lf, %lf, "
-      "%lf, %lf).\n",
-      t, desired_state.vec_position[0], desired_state.vec_position[1],
-      desired_state.velocity, desired_state.acceleration, desired_state.angle);
+  //printf(
+  //    "[SscPlannerServer]t %lf, desired state (x,y,v,a,theta):(%lf, %lf, %lf, "
+  //    "%lf, %lf).\n",
+  //    t, desired_state.vec_position[0], desired_state.vec_position[1],
+  //    desired_state.velocity, desired_state.acceleration, desired_state.angle);
 
   FilterSingularityState(desired_state_hist_, &desired_state);
   desired_state_hist_.push_back(desired_state);
@@ -286,15 +286,15 @@ void SscPlannerServer::Replan() {
 
   time_profile_tool_.tic();
   if (planner_.RunOnce() != kSuccess) {
-    printf("[SscPlannerServer]Ssc planner core failed in %lf ms.\n",
-           time_profile_tool_.toc());
+    //printf("[SscPlannerServer]Ssc planner core failed in %lf ms.\n",
+    //       time_profile_tool_.toc());
     require_intervention_signal_ = true;
     return;
   }
 
   require_intervention_signal_ = false;
-  printf("[SscPlannerServer]Ssc planner succeed in %lf ms.\n",
-         time_profile_tool_.toc());
+  //printf("[SscPlannerServer]Ssc planner succeed in %lf ms.\n",
+  //       time_profile_tool_.toc());
 
   next_traj_ = std::move(planner_.trajectory());
 }
