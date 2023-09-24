@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ROS: Launch",
+            "type": "ros",
+            "request": "launch",
+            "target": "/root/catkin_ws/src/EPSILON/launch/eudm_ros.launch",
+            "env": {
+                "ROS_MASTER_URI": "http://172.17.0.2:11311",
+                "ROS_IP": "172.17.0.2",
+            },
+        },
+    ]
+}

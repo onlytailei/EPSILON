@@ -2,7 +2,7 @@
   <arg name="arena_info_static_topic" value="/arena_info_static" />
   <arg name="arena_info_dynamic_topic" value="/arena_info_dynamic" />
 
-  <include file="$(find phy_simulator)/launch/joy_ctrl.launch"/>
+  <!-- <include file="$(find phy_simulator)/launch/joy_ctrl.launch"/> -->
 
   <arg name="playground" value = "highway_v1.0" />
 

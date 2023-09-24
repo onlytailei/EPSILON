@@ -23,3 +23,5 @@
     <remap from="~ctrl" to="$(arg ctrl_topic)"/>
   </node>
 </launch>
+    
+<!-- <launch-prefix="gdb -ex run \-\-args"/> !-->
