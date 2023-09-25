@@ -84,5 +84,5 @@
         "/root/catkin_ws/devel/lib/python2.7/dist-packages",
         "/opt/ros/melodic/lib/python2.7/dist-packages"
     ],
-    "cmake.sourceDirectory": "/home/tai/Projects/EPSILON/.vscode/.vscode-server/extensions/twxs.cmake-0.0.17/node_modules/peg-cmake/test"
+    "cmake.sourceDirectory": "/root/catkin_ws/.vscode/.vscode-server/extensions/twxs.cmake-0.0.17/node_modules/peg-cmake/test"
 }

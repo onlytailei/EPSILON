@@ -4,7 +4,7 @@ ADD sources.list /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y\
     libgoogle-glog-dev libdw-dev libopenblas-dev gfortran \
-    python-pip
+    python-pip gdb
 
 ADD pip.conf /root/.pip/
 ENV PIP_CONFIG_FILE=/root/.pip/pip.conf
