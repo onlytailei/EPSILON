@@ -100,5 +100,5 @@ fi
 
 source /opt/ros/melodic/setup.bash
 source ~/catkin_ws/devel/setup.bash
-export ROS_MASTER_URI="http://172.17.0.2:11311/"
+#export ROS_MASTER_URI="http://172.17.0.2:11311/"
 export ROS_IP="172.17.0.2"
