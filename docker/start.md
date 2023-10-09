@@ -11,6 +11,7 @@ docker run -v /home/tai/Projects/EPSILON:/root/catkin_ws/src/EPSILON  -v /home/t
 cd ~/catkin_ws
 catkin_make
 catkin_make -DCMAKE_BUILD_TYPE=Debug
+catkin_make -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 
 # start a terminal
 roscore
