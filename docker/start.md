@@ -25,10 +25,12 @@ roscore
 ```
 
 ## run debug through vscode container
-ROS: Launch separate
+Comment the test_ssc_with_eudm_ros in eudm_ros.launch, and roslaunch the  eudm_ros.launch
+start debug the ROS: Launch separate
 
 
 ## without vscdoe container
+Directly launch file
 ```
 roslaunch ~/catkin_ws/src/EPSILON/launch/eudm_ros.launch
 ```
