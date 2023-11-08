@@ -2,10 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ROS: Launch",
+            "name": "ROS: Launch whole",
             "type": "ros",
             "request": "launch",
             "target": "/root/catkin_ws/src/EPSILON/launch/eudm_ros.launch",
+        },
+        {
+            "name": "separate eudm planner",
+            "type": "ros",
+            "request": "launch",
+            "target": "/root/catkin_ws/src/EPSILON/app/planning_integrated/launch/test_ssc_with_eudm_ros.launch",
             "MIMode": "gdb",
             "setupCommands": [
                 {
