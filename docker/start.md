@@ -5,6 +5,7 @@ host: 22.04
 docker run -v /home/tai/Projects/EPSILON:/root/catkin_ws/src/EPSILON  -v /home/tai/Projects/EPSILON/.vscode/.vscode-server:/root/.vscode-server -v /home/tai/Projects/EPSILON/.vscode:/root/catkin_ws/.vscode -i -d epsilon:latest bash
 
 **notice the ros master uri must be ended with a '/'**
+
 docker run -v /home/tai/Projects/EPSILON:/root/catkin_ws/src/EPSILON  -v /home/tai/Projects/EPSILON/.vscode/.vscode-server:/root/.vscode-server -v /home/tai/Projects/EPSILON/.vscode:/root/catkin_ws/.vscode -v /home/tai/Projects/EPSILON/.vscode/.bashrc:/root/.bashrc -e ROS_IP=172.17.0.2 -i -d epsilon:latest bash
 
 # in docker container
